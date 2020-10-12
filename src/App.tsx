@@ -1,7 +1,11 @@
 import React from 'react'
 
 const App = (): JSX.Element => {
-   return <div>hola mundo</div>
+   return (
+      <React.Fragment>
+         <h1>Header</h1>
+      </React.Fragment>
+   )
 }
 
 export default App
