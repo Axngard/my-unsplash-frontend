@@ -7,7 +7,7 @@
       "build": "rimraf ./dist && webpack --mode production",
       "start": "webpack-dev-server --mode development"
    },
-   "author": "Axngard",
+   "author": "Cutting Edge Coders",
    "license": "MIT",
    "dependencies": {
       "@emotion/core": "^10.0.35",
@@ -60,5 +60,13 @@
    },
    "lint-staged": {
       "*.{js,tsx,ts}": "eslint --cache --fix"
-   }
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/CuttingEdgeCoders/my-unsplash-frontend.git"
+   },
+   "bugs": {
+      "url": "https://github.com/CuttingEdgeCoders/my-unsplash-frontend/issues"
+   },
+   "homepage": "https://github.com/CuttingEdgeCoders/my-unsplash-frontend#readme"
 }
