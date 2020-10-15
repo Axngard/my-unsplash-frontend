@@ -14,11 +14,11 @@ import {
 } from 'semantic-ui-react'
 
 /* Molecules */
-import { Wrapper } from '../../atoms'
-import { screens } from '../../../styles/theme'
+import { Wrapper } from '@components/atoms'
+import { screens } from '@src/styles/theme'
 
 /* Constants */
-import * as routes from '../../../constants/routes'
+import * as routes from '@src/constants/routes'
 
 const Login = (): JSX.Element => {
    /* Destructuring */

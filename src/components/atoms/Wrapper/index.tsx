@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react'
-import { screens } from '../../../styles/theme'
+import { screens } from '@src/styles/theme'
 
 /* Styles */
 import { WrapperStyled } from './styles'
