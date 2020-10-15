@@ -2,14 +2,14 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 /* Pages */
-import { Login, Signup } from './components/pages'
+import { Login, Signup } from '@components/pages'
 
 /* Global Styles */
-import GlobalStyles from './styles/GlobalStyle'
+import GlobalStyles from '@src/styles/GlobalStyle'
 import { Global } from '@emotion/core'
 
 /* Constants */
-import * as routes from './constants/routes'
+import * as routes from '@src/constants/routes'
 
 const App = (): JSX.Element => {
    return (

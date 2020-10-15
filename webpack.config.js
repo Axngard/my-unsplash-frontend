@@ -33,14 +33,18 @@ module.exports = {
       disableHostCheck: true
    },
    resolve: {
-      extensions: ['.ts', '.tsx', '.js']
+      extensions: ['.ts', '.tsx', '.js'],
+      alias: {
+         '@components': path.resolve(__dirname, 'src', 'components'),
+         '@src': path.resolve(__dirname, 'src')
+      }
    },
    optimization: {
       splitChunks: {
          name: 'commons',
          chunks: 'all',
          minSize: 0,
-         maxSize: 24400
+         maxSize: 244000
       }
    },
    plugins: [

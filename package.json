@@ -5,7 +5,7 @@
    "main": "index.js",
    "scripts": {
       "build": "rimraf ./dist && webpack --mode production",
-      "start": "webpack-dev-server --mode development"
+      "start": "webpack-dev-server --mode development --open"
    },
    "author": "Cutting Edge Coders",
    "license": "MIT",
