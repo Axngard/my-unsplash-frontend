@@ -1,6 +1,8 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="center">My Unsplash</h1>
+<p align="center">
+ <img src="https://avatars0.githubusercontent.com/u/72760547?s=400&u=160f1dcaf3d5d5542dd9ef52d1a4d4999b2077a3&v=4" width="150" alt="Cutting Edge Coders Logo"/>
+</p>
 
 <div align="center">
    Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
