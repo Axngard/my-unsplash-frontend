@@ -5,13 +5,16 @@
    "main": "index.js",
    "scripts": {
       "build": "rimraf ./dist && webpack --mode production",
-      "start": "webpack-dev-server --mode development --open"
+      "start": "webpack-dev-server --mode development --open",
+      "test": "jest --verbose",
+      "test:coverage": "jest --coverage"
    },
    "author": "Cutting Edge Coders",
    "license": "MIT",
    "dependencies": {
       "@emotion/core": "^10.0.35",
       "@emotion/styled": "^10.0.27",
+      "@types/jest": "^26.0.14",
       "prettier": "^2.1.2",
       "react": "^16.13.1",
       "react-dom": "^16.13.1",
@@ -46,6 +49,7 @@
       "file-loader": "^6.1.1",
       "html-webpack-plugin": "^4.5.0",
       "husky": "^4.3.0",
+      "jest": "^26.5.3",
       "lint-staged": "^10.4.0",
       "mini-css-extract-plugin": "^1.0.0",
       "rimraf": "^3.0.2",
