@@ -17,7 +17,6 @@
       "@emotion/core": "^10.0.35",
       "@emotion/styled": "^10.0.27",
       "@types/jest": "^26.0.14",
-      "prettier": "^2.1.2",
       "react": "^16.13.1",
       "react-dom": "^16.13.1",
       "react-redux": "^7.2.1",
@@ -45,6 +44,7 @@
       "commitlint": "^11.0.0",
       "css-loader": "^4.3.0",
       "enzyme": "^3.11.0",
+      "prettier": "^2.1.2",
       "enzyme-adapter-react-16": "^1.15.5",
       "eslint": "^7.11.0",
       "eslint-config-standard": "^14.1.1",
@@ -73,7 +73,8 @@
       }
    },
    "lint-staged": {
-      "*.{js,tsx,ts}": "eslint --cache --fix"
+      "*.{js,tsx,ts}": "eslint --cache --fix",
+      "src/**/*.{js,tsx,ts}": "prettier --write"
    },
    "repository": {
       "type": "git",
