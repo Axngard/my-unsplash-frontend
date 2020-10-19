@@ -1,5 +1,4 @@
 module.exports = {
-   verbose: true,
    setupFilesAfterEnv: ['<rootDir>/src/__test__/jest.setup.js'],
    moduleNameMapper: {
       '^@components/(.*)': '<rootDir>/src/components/$1',
