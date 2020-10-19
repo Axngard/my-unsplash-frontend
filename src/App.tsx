@@ -7,6 +7,7 @@ import { Login, Signup } from '@components/pages'
 /* Global Styles */
 import GlobalStyles from '@src/styles/GlobalStyle'
 import { Global } from '@emotion/core'
+import 'semantic-ui-css/semantic.min.css'
 
 /* Constants */
 import * as routes from '@src/constants/routes'
