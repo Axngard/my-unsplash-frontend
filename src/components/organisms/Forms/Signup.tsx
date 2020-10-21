@@ -131,7 +131,10 @@ const Login = (): JSX.Element => {
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message
                      error
-                     header={`${error?.response?.data.error}: ${error?.response?.data.statusCode}`}
+                     header={
+                        `${error?.response?.data.error}: ${error?.response?.data.statusCode}` ||
+                        'Error'
+                     }
                      content={handleErrors(error?.response?.data.message || [])}
                   />
                </Transition>
