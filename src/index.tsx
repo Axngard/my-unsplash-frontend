@@ -6,8 +6,7 @@ import App from '@src/App'
 import { compose, createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-const composeEnhancers =
-   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(() => null, composeEnhancers())
 
