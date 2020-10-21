@@ -18,7 +18,7 @@ import { Wrapper } from '@components/atoms'
 import { screens } from '@src/styles/theme'
 
 /* Constants */
-import * as routes from '@src/constants/routes'
+import { routes } from '@src/constants/routes'
 
 const Login = (): JSX.Element => {
    /* Destructuring */

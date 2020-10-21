@@ -9,8 +9,8 @@ describe('<App />', () => {
       expect(app).toHaveLength(1)
    })
 
-   it('should render with two routes', () => {
-      expect(app.find('Route')).toHaveLength(2)
+   it('should render with three routes', () => {
+      expect(app.find('Route')).toHaveLength(3)
    })
 
    it('should render with GlobalStyles', () => {

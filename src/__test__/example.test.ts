@@ -1,10 +1,14 @@
-console.clear()
+describe('example', () => {
+   it('should be true', () => {
+      expect(true).toBe(true)
+   })
+})
 
 /***************************************
  * Preparando el entorno con Jest
  ***************************************/
 
-describe('Strings', () => {
+/* describe('Strings', () => {
    const mystring = 'this is a string'
 
    it('should contain a string', () => {
@@ -14,13 +18,13 @@ describe('Strings', () => {
    it('should be equal', () => {
       expect(mystring).toEqual(mystring)
    })
-})
+}) */
 
 /***************************************
  * Boolean, arrays and number
  ***************************************/
 
-describe('Arrays', () => {
+/* describe('Arrays', () => {
    const fruits = ['apples', 'grapes', 'watermelon']
 
    it('should contain apples', () => {
@@ -30,9 +34,9 @@ describe('Arrays', () => {
    it("shouldn't contain bananas", () => {
       expect(fruits).not.toContain('bananas')
    })
-})
+}) */
 
-describe('Numbers', () => {
+/* describe('Numbers', () => {
    const eight = 8
    const five = 5
 
@@ -43,9 +47,9 @@ describe('Numbers', () => {
    it('five should be less than 8', () => {
       expect(five).toBeLessThan(eight)
    })
-})
+}) */
 
-describe('Booleans', () => {
+/* describe('Booleans', () => {
    const TRUE = true
    const FALSE = false
 
@@ -56,13 +60,13 @@ describe('Booleans', () => {
    it("shouldn't be truthy", () => {
       expect(FALSE).not.toBeTruthy()
    })
-})
+}) */
 
 /***************************************
  * Promises, callbacks and Async / Await
  ***************************************/
 
-const mypromise = (string: string): Promise<Error | string> => {
+/* const mypromise = (string: string): Promise<Error | string> => {
    return new Promise((resolve, reject) => {
       if (!string) {
          reject(new Error('Must have a string'))
@@ -71,9 +75,9 @@ const mypromise = (string: string): Promise<Error | string> => {
          resolve(string.split('').reverse().join(''))
       }, 100)
    })
-}
+} */
 
-describe('Promises', () => {
+/* describe('Promises', () => {
    it('should resolve with aloh', (done) => {
       const myword = 'hola'
 
@@ -91,9 +95,9 @@ describe('Promises', () => {
          done()
       })
    })
-})
+}) */
 
-describe('Callbacks', () => {
+/* describe('Callbacks', () => {
    const mycallback = (string: string, callback: (string: string) => void) => {
       setTimeout(() => {
          callback(string.split('').reverse().join(''))
@@ -129,7 +133,7 @@ describe('Async / Await', () => {
 
       expect(reverseword).not.toBe(myword)
    })
-})
+}) */
 
 /***************************************
  * before and after
