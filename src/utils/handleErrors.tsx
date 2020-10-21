@@ -14,6 +14,10 @@ const handleErrors = (array: Array<string> | string): JSX.Element => {
          return <span>User already exists</span>
       }
 
+      if (array === 'verify_credentials') {
+         return <span>Credentials invalid</span>
+      }
+
       return <span>{array}</span>
    }
 

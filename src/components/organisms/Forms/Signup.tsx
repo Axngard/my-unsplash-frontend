@@ -20,7 +20,11 @@ import { screens } from '@src/styles/theme'
 
 /* Constants */
 import { routes } from '@src/constants/routes'
+
+/* Config */
 import config from '@src/config'
+
+/* Utils */
 import handleErrors from '@src/utils/handleErrors'
 
 const Login = (): JSX.Element => {
