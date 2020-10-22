@@ -16,6 +16,10 @@ const handleErrors = (array: Array<string> | string): JSX.Element => {
          return <span>Credentials invalid</span>
       }
 
+      if (array === 'weak_password') {
+         return <span>Your password is insecure</span>
+      }
+
       return <span>{array}</span>
    }
 
