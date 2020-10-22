@@ -106,7 +106,7 @@ const Login = (): JSX.Element => {
                      header={`${error?.response?.data.error || 'Error'}: ${
                         error?.response?.data.statusCode || 500
                      }`}
-                     content={handleErrors(error?.response?.data.message || [])}
+                     content={handleErrors(error?.response?.data.message)}
                   />
                </Transition>
 

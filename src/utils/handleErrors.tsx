@@ -7,7 +7,7 @@ const handleErrors = (array: Array<string> | string): JSX.Element => {
    /* Destructuring */
    const { Item } = List
 
-   if (typeof array === 'string') {
+   if (typeof array === 'string' && array.length) {
       if (array === 'user_duplicated') {
          return <span>User already exists</span>
       }

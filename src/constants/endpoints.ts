@@ -1,6 +1,6 @@
 enum endpoints {
-   SIGNUP = '/api/auth/login',
-   LOGIN = '/api/user'
+   SIGNUP = '/api/user',
+   LOGIN = '/api/auth/login'
 }
 
 export default endpoints
