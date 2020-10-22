@@ -1,13 +1,11 @@
 import React from 'react'
+
+/* Semantic UI */
 import { List } from 'semantic-ui-react'
 
 const handleErrors = (array: Array<string> | string): JSX.Element => {
    /* Destructuring */
    const { Item } = List
-
-   if (!array.length) {
-      return <span>Internal Server Error</span>
-   }
 
    if (typeof array === 'string') {
       if (array === 'user_duplicated') {
@@ -21,13 +19,17 @@ const handleErrors = (array: Array<string> | string): JSX.Element => {
       return <span>{array}</span>
    }
 
-   return (
-      <List bulleted>
-         {array.map((e, i) => (
-            <Item key={i}>{e}</Item>
-         ))}
-      </List>
-   )
+   if (typeof array === 'object') {
+      return (
+         <List bulleted>
+            {array.map((e, i) => (
+               <Item key={i}>{e}</Item>
+            ))}
+         </List>
+      )
+   }
+
+   return <span>Internal Server Error</span>
 }
 
 export default handleErrors

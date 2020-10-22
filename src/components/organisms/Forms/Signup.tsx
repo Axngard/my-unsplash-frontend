@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from 'react'
 import axios, { AxiosError } from 'axios'
+import { useHistory } from 'react-router-dom'
 
 /* Styles */
 import { Container, Text, Anchor } from './styles'
@@ -19,7 +20,7 @@ import { Wrapper } from '@components/atoms'
 import { screens } from '@src/styles/theme'
 
 /* Constants */
-import { routes } from '@src/constants/routes'
+import { routes, endpoints } from '@src/constants'
 
 /* Config */
 import config from '@src/config'
@@ -39,6 +40,7 @@ const Login = (): JSX.Element => {
    const [error, setError] = useState<AxiosError | null>(null)
    const [success, setSuccess] = useState(false)
    const [loading, setLoading] = useState(false)
+   const history = useHistory()
    const isInvalid = !username || !email || !password
 
    /* Methods */
@@ -51,7 +53,7 @@ const Login = (): JSX.Element => {
       axios({
          method: 'POST',
          baseURL: config.SERVER_URL,
-         url: '/api/user',
+         url: endpoints.SIGNUP,
          data: {
             fullName: fullname,
             username,
@@ -59,9 +61,9 @@ const Login = (): JSX.Element => {
             email
          }
       })
-         .then((user) => {
+         .then(() => {
             setSuccess(true)
-            console.log(user)
+            history.replace('/login')
          })
          .catch((err: AxiosError) => {
             setError(err)

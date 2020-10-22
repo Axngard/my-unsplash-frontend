@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 /* Styles */
 import { Container, Grid } from './styles'
@@ -9,7 +10,6 @@ import { Wrapper } from '@components/atoms'
 
 /* Semantic UI */
 import { Input, Button, Header as Title } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
 
 /* Organisms */
 import { ModalAddPhoto } from '@components/organisms'

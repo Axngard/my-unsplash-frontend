@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from 'react'
 import axios, { AxiosError } from 'axios'
+import { useHistory } from 'react-router-dom'
 
 /* Config */
 import config from '@src/config'
@@ -22,7 +23,7 @@ import {
 import { Wrapper } from '@components/atoms'
 
 /* Constants */
-import { routes } from '@src/constants/routes'
+import { routes, endpoints } from '@src/constants'
 
 /* Utils */
 import handleErrors from '@src/utils/handleErrors'
@@ -36,7 +37,7 @@ const Login = (): JSX.Element => {
    const [password, setPassword] = useState('')
    const [error, setError] = useState<AxiosError | null>(null)
    const [loading, setLoading] = useState(false)
-   const [success, setSuccess] = useState(false)
+   const history = useHistory()
    const isInvalid = !username || !password
 
    /* Methods */
@@ -49,32 +50,26 @@ const Login = (): JSX.Element => {
       axios({
          method: 'POST',
          baseURL: config.SERVER_URL,
-         url: '/api/auth/login',
+         url: endpoints.LOGIN,
          data: {
             username,
             password
          }
       })
-         .then((user) => {
-            setSuccess(true)
-            console.log(user)
+         .then(() => {
+            // TODO: Control token
+            history.replace('/')
          })
          .catch((err: AxiosError) => {
             setError(err)
             setLoading(false)
-            console.log(error?.response?.data)
          })
    }
 
    return (
       <Container>
          <Wrapper breakpoint={screens.xs}>
-            <Form
-               success={success}
-               error={!!error}
-               onSubmit={handleSubmit}
-               method="POST"
-            >
+            <Form error={!!error} onSubmit={handleSubmit} method="POST">
                <Header as="h2">Login</Header>
                <Field
                   id="username"
@@ -112,14 +107,6 @@ const Login = (): JSX.Element => {
                         error?.response?.data.statusCode || 500
                      }`}
                      content={handleErrors(error?.response?.data.message || [])}
-                  />
-               </Transition>
-
-               <Transition visible={success} animation="fade" duration={500}>
-                  <Message
-                     success
-                     header="User registered"
-                     content="You have been successfully registered."
                   />
                </Transition>
 
