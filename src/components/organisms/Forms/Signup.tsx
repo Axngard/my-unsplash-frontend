@@ -1,6 +1,8 @@
 import React, { FormEvent, useState } from 'react'
-import axios, { AxiosError } from 'axios'
 import { useHistory } from 'react-router-dom'
+
+/* Axios */
+import axios, { AxiosError } from 'axios'
 
 /* Styles */
 import { Container, Text, Anchor } from './styles'
