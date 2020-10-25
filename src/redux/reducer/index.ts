@@ -1,13 +1,12 @@
 /* eslint-disable indent */
-import { Item } from '@src/interfaces'
-import { Action } from 'redux'
+import { Item, Action } from '@src/interfaces'
 
 export const DO_SOMETHING = 'DO_SOMETHING'
 
-const reducer = (state: Item[] = [], action: Action<string>): Item[] => {
+const reducer = (state: Item[] = [], action: Action): Item[] => {
    switch (action.type) {
       case DO_SOMETHING:
-         return state
+         return [...state, action.payload]
 
       default:
          return state

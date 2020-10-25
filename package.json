@@ -9,7 +9,7 @@
       "start": "npm run build && serve ./dist --single",
       "test": "jest",
       "test:coverage": "jest --coverage",
-      "test:watch": "jest --watch --verbose --findRelatedTests"
+      "test:watch": "jest --watch --verbose --findRelatedTests ./src/"
    },
    "author": "Cutting Edge Coders",
    "license": "MIT",

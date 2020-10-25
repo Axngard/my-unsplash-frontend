@@ -3,3 +3,8 @@ export interface Item {
    name: string
    status: boolean
 }
+
+export interface Action {
+   type: string
+   payload?: any
+}

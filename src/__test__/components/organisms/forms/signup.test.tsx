@@ -1,7 +1,6 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { SignupForm } from '@components/organisms'
-import { create } from 'react-test-renderer'
 import ProviderMock from '@src/__mocks__/Provider.mock'
 
 describe('<SignupForm />', () => {
@@ -16,7 +15,7 @@ describe('<SignupForm />', () => {
    })
 })
 
-describe('Fullname input', () => {
+describe('Changes Inputs', () => {
    it('should capture correctly onChange', () => {
       const wrapper = mount(
          <ProviderMock>
