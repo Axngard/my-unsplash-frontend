@@ -1,7 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
-import App from './App'
+import App from '@src/App'
 
-import 'semantic-ui-css/semantic.min.css'
+/* Redux */
+import { Provider } from 'react-redux'
+import store from '@src/redux/store'
 
-render(<App />, document.getElementById('app'))
+render(
+   <Provider store={store}>
+      <App />
+   </Provider>,
+
+   document.getElementById('app')
+)

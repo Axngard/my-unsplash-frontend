@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Wrapper /> should match snapshot 1`] = `
+<div
+  className="css-zoib7n"
+>
+  <h1>
+    Testing
+  </h1>
+</div>
+`;

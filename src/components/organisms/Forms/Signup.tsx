@@ -1,4 +1,8 @@
 import React, { FormEvent, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
+/* Axios */
+import axios, { AxiosError } from 'axios'
 
 /* Styles */
 import { Container, Text, Anchor } from './styles'
@@ -10,26 +14,33 @@ import {
    Button,
    Input,
    Message,
-   Transition
+   Transition,
+   FormField
 } from 'semantic-ui-react'
 
 /* Molecules */
-import { Wrapper } from '../../atoms'
-import { screens } from '../../../styles/theme'
+import { Wrapper } from '@components/atoms'
+import { screens } from '@src/styles/theme'
 
 /* Constants */
-import * as routes from '../../../constants/routes'
+import { routes, endpoints } from '@src/constants'
+
+/* Config */
+import config from '@src/config'
+
+/* Utils */
+import handleErrors from '@src/utils/handleErrors'
 
 const Login = (): JSX.Element => {
-   /* Destructuring */
-   const { Field } = Form
-
    /* States */
    const [username, setUsername] = useState('')
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
-   const [error, setError] = useState<Error | null>(null)
+   const [fullname, setFullname] = useState('')
+   const [error, setError] = useState<AxiosError | null>(null)
+   const [success, setSuccess] = useState(false)
    const [loading, setLoading] = useState(false)
+   const history = useHistory()
    const isInvalid = !username || !email || !password
 
    /* Methods */
@@ -38,28 +49,53 @@ const Login = (): JSX.Element => {
 
       setLoading(true)
       setError(null)
-      setTimeout(() => {
-         setLoading(false)
-         setError(new Error('This is an error for testing'))
-      }, 2000)
+
+      axios({
+         method: 'POST',
+         baseURL: config.SERVER_URL,
+         url: endpoints.SIGNUP,
+         data: {
+            fullName: fullname,
+            username,
+            password,
+            email
+         }
+      })
+         .then(() => {
+            setSuccess(true)
+            history.replace('/login')
+         })
+         .catch((err: AxiosError) => {
+            setError(err)
+            setLoading(false)
+         })
    }
 
    return (
       <Container>
          <Wrapper breakpoint={screens.xs}>
-            <Form
-               error={!!error}
-               onSubmit={handleSubmit}
-               action="/auth/login"
-               method="POST"
-            >
+            <Form success={success} error={!!error} onSubmit={handleSubmit}>
                <Header as="h2">Signup</Header>
-               <Field
+               <FormField
+                  id="fullname"
+                  control={Input}
+                  label="Fullname"
+                  type="text"
+                  placeholder="Enter your fullname..."
+                  error={null}
+                  value={fullname}
+                  onChange={({
+                     target
+                  }: React.ChangeEvent<HTMLInputElement>) => {
+                     setFullname(target.value)
+                  }}
+               />
+               <FormField
                   id="username"
                   control={Input}
                   label="Username"
                   type="text"
-                  placeholder="Your username..."
+                  placeholder="Enter your username..."
                   error={null}
                   value={username}
                   onChange={({
@@ -69,12 +105,12 @@ const Login = (): JSX.Element => {
                   }}
                />
 
-               <Field
+               <FormField
                   id="email"
                   control={Input}
                   label="Email"
                   type="email"
-                  placeholder="Your email..."
+                  placeholder="Enter your email..."
                   error={null}
                   value={email}
                   onChange={({
@@ -84,12 +120,12 @@ const Login = (): JSX.Element => {
                   }}
                />
 
-               <Field
+               <FormField
                   id="password"
                   control={Input}
                   label="Password"
                   type="password"
-                  placeholder="Your password..."
+                  placeholder="Enter your password..."
                   error={null}
                   value={password}
                   onChange={({
@@ -101,8 +137,18 @@ const Login = (): JSX.Element => {
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message
                      error
-                     header={error?.name}
-                     content={error?.message}
+                     header={`${error?.response?.data.error || 'Error'}: ${
+                        error?.response?.data.statusCode || 500
+                     }`}
+                     content={handleErrors(error?.response?.data.message || [])}
+                  />
+               </Transition>
+
+               <Transition visible={success} animation="fade" duration={500}>
+                  <Message
+                     success
+                     header="User registered"
+                     content="You have been successfully registered."
                   />
                </Transition>
 

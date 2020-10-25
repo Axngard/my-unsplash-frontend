@@ -1,18 +1,13 @@
 import React, { PropsWithChildren } from 'react'
-import { screens } from '../../../styles/theme'
+import { screens } from '@src/styles/theme'
 
 /* Styles */
 import { WrapperStyled } from './styles'
 
 /* Types */
-interface Props {
-   breakpoint?: string
-}
+type Props = PropsWithChildren<{ breakpoint?: string }>
 
-const Wrapper = ({
-   children,
-   breakpoint = screens.lg
-}: PropsWithChildren<Props>): JSX.Element => {
+const Wrapper = ({ children, breakpoint = screens.lg }: Props): JSX.Element => {
    return <WrapperStyled theme={{ breakpoint }}>{children}</WrapperStyled>
 }
 

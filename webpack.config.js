@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
    entry: path.resolve(__dirname, 'src', 'index.tsx'),
@@ -33,14 +34,18 @@ module.exports = {
       disableHostCheck: true
    },
    resolve: {
-      extensions: ['.ts', '.tsx', '.js']
+      extensions: ['.ts', '.tsx', '.js'],
+      alias: {
+         '@components': path.resolve(__dirname, 'src', 'components'),
+         '@src': path.resolve(__dirname, 'src')
+      }
    },
    optimization: {
       splitChunks: {
          name: 'commons',
          chunks: 'all',
          minSize: 0,
-         maxSize: 24400
+         maxSize: 244000
       }
    },
    plugins: [
@@ -51,6 +56,7 @@ module.exports = {
       new MiniCssExtractPlugin({
          filename: 'assets/[name].[hash].css',
          chunkFilename: '[name].css'
-      })
+      }),
+      new Dotenv({ path: './.env.development' })
    ]
 }
