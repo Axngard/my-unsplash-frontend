@@ -1,5 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+/* import ItemMock from '@src/__mocks__/item.mock'
+import Provider from '@src/__mocks__/Provider.mock' */
 import App from '@src/App'
 
 describe('<App />', () => {

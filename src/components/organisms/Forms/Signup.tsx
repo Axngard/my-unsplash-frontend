@@ -11,7 +11,8 @@ import {
    Button,
    Input,
    Message,
-   Transition
+   Transition,
+   FormField
 } from 'semantic-ui-react'
 
 /* Molecules */
@@ -24,9 +25,6 @@ import config from '@src/config'
 import handleErrors from '@src/utils/handleErrors'
 
 const Login = (): JSX.Element => {
-   /* Destructuring */
-   const { Field } = Form
-
    /* States */
    const [username, setUsername] = useState('')
    const [email, setEmail] = useState('')
@@ -70,7 +68,7 @@ const Login = (): JSX.Element => {
          <Wrapper breakpoint={screens.xs}>
             <Form success={success} error={!!error} onSubmit={handleSubmit}>
                <Header as="h2">Signup</Header>
-               <Field
+               <FormField
                   id="fullname"
                   control={Input}
                   label="Fullname"
@@ -84,7 +82,7 @@ const Login = (): JSX.Element => {
                      setFullname(target.value)
                   }}
                />
-               <Field
+               <FormField
                   id="username"
                   control={Input}
                   label="Username"
@@ -99,7 +97,7 @@ const Login = (): JSX.Element => {
                   }}
                />
 
-               <Field
+               <FormField
                   id="email"
                   control={Input}
                   label="Email"
@@ -114,7 +112,7 @@ const Login = (): JSX.Element => {
                   }}
                />
 
-               <Field
+               <FormField
                   id="password"
                   control={Input}
                   label="Password"
