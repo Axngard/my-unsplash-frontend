@@ -19,5 +19,5 @@ jobs:
       - name: npm install, format, linting, unit test
         uses: actions/setup-node@v1
       - run: npm install
-      - run: npm run eslint --cache --fix
+      - run: npx eslint --cache --fix
       - run: npm run test
