@@ -20,4 +20,4 @@ jobs:
         uses: actions/setup-node@v1
       - run: npm install
       - run: npx eslint --cache --fix
-      - run: npm run test
+      - run: npm run test:ci
