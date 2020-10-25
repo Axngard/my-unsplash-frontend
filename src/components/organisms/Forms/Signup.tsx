@@ -1,4 +1,7 @@
 import React, { FormEvent, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
+/* Axios */
 import axios, { AxiosError } from 'axios'
 
 /* Styles */
@@ -20,8 +23,12 @@ import { Wrapper } from '@components/atoms'
 import { screens } from '@src/styles/theme'
 
 /* Constants */
-import { routes } from '@src/constants/routes'
+import { routes, endpoints } from '@src/constants'
+
+/* Config */
 import config from '@src/config'
+
+/* Utils */
 import handleErrors from '@src/utils/handleErrors'
 
 const Login = (): JSX.Element => {
@@ -33,6 +40,7 @@ const Login = (): JSX.Element => {
    const [error, setError] = useState<AxiosError | null>(null)
    const [success, setSuccess] = useState(false)
    const [loading, setLoading] = useState(false)
+   const history = useHistory()
    const isInvalid = !username || !email || !password
 
    /* Methods */
@@ -45,7 +53,7 @@ const Login = (): JSX.Element => {
       axios({
          method: 'POST',
          baseURL: config.SERVER_URL,
-         url: '/api/user',
+         url: endpoints.SIGNUP,
          data: {
             fullName: fullname,
             username,
@@ -53,9 +61,9 @@ const Login = (): JSX.Element => {
             email
          }
       })
-         .then((user) => {
+         .then(() => {
             setSuccess(true)
-            console.log(user)
+            history.replace('/login')
          })
          .catch((err: AxiosError) => {
             setError(err)
@@ -129,10 +137,9 @@ const Login = (): JSX.Element => {
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message
                      error
-                     header={
-                        `${error?.response?.data.error}: ${error?.response?.data.statusCode}` ||
-                        'Error'
-                     }
+                     header={`${error?.response?.data.error || 'Error'}: ${
+                        error?.response?.data.statusCode || 500
+                     }`}
                      content={handleErrors(error?.response?.data.message || [])}
                   />
                </Transition>
