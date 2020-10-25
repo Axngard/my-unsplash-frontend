@@ -1,4 +1,4 @@
-describe('example', () => {
+describe.skip('example', () => {
    it('should be true', () => {
       expect(true).toBe(true)
    })

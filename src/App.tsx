@@ -10,7 +10,7 @@ import { Global } from '@emotion/core'
 import 'semantic-ui-css/semantic.min.css'
 
 /* Constants */
-import { routes } from '@src/constants/routes'
+import { routes } from '@src/constants'
 
 const App = (): JSX.Element => {
    return (

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 
 /* Types */
-type PropsWithChildren = React.PropsWithChildren<void>
+type PropsWithChildren = React.PropsWithChildren<React.ReactNode>
 
 const store = createStore(() => {
    return null

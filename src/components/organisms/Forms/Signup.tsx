@@ -1,4 +1,7 @@
 import React, { FormEvent, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
+/* Axios */
 import axios, { AxiosError } from 'axios'
 
 /* Styles */
@@ -11,7 +14,8 @@ import {
    Button,
    Input,
    Message,
-   Transition
+   Transition,
+   FormField
 } from 'semantic-ui-react'
 
 /* Molecules */
@@ -19,14 +23,15 @@ import { Wrapper } from '@components/atoms'
 import { screens } from '@src/styles/theme'
 
 /* Constants */
-import { routes } from '@src/constants/routes'
+import { routes, endpoints } from '@src/constants'
+
+/* Config */
 import config from '@src/config'
+
+/* Utils */
 import handleErrors from '@src/utils/handleErrors'
 
 const Login = (): JSX.Element => {
-   /* Destructuring */
-   const { Field } = Form
-
    /* States */
    const [username, setUsername] = useState('')
    const [email, setEmail] = useState('')
@@ -35,6 +40,7 @@ const Login = (): JSX.Element => {
    const [error, setError] = useState<AxiosError | null>(null)
    const [success, setSuccess] = useState(false)
    const [loading, setLoading] = useState(false)
+   const history = useHistory()
    const isInvalid = !username || !email || !password
 
    /* Methods */
@@ -47,7 +53,7 @@ const Login = (): JSX.Element => {
       axios({
          method: 'POST',
          baseURL: config.SERVER_URL,
-         url: '/api/user',
+         url: endpoints.SIGNUP,
          data: {
             fullName: fullname,
             username,
@@ -55,9 +61,9 @@ const Login = (): JSX.Element => {
             email
          }
       })
-         .then((user) => {
+         .then(() => {
             setSuccess(true)
-            console.log(user)
+            history.replace('/login')
          })
          .catch((err: AxiosError) => {
             setError(err)
@@ -70,7 +76,7 @@ const Login = (): JSX.Element => {
          <Wrapper breakpoint={screens.xs}>
             <Form success={success} error={!!error} onSubmit={handleSubmit}>
                <Header as="h2">Signup</Header>
-               <Field
+               <FormField
                   id="fullname"
                   control={Input}
                   label="Fullname"
@@ -84,7 +90,7 @@ const Login = (): JSX.Element => {
                      setFullname(target.value)
                   }}
                />
-               <Field
+               <FormField
                   id="username"
                   control={Input}
                   label="Username"
@@ -99,7 +105,7 @@ const Login = (): JSX.Element => {
                   }}
                />
 
-               <Field
+               <FormField
                   id="email"
                   control={Input}
                   label="Email"
@@ -114,7 +120,7 @@ const Login = (): JSX.Element => {
                   }}
                />
 
-               <Field
+               <FormField
                   id="password"
                   control={Input}
                   label="Password"
@@ -131,10 +137,9 @@ const Login = (): JSX.Element => {
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message
                      error
-                     header={
-                        `${error?.response?.data.error}: ${error?.response?.data.statusCode}` ||
-                        'Error'
-                     }
+                     header={`${error?.response?.data.error || 'Error'}: ${
+                        error?.response?.data.statusCode || 500
+                     }`}
                      content={handleErrors(error?.response?.data.message || [])}
                   />
                </Transition>
