@@ -4,7 +4,7 @@ import initialState from '@src/utils/items'
 
 describe('Reducer', () => {
    it('should return initial state', () => {
-      expect(reducer(initialState, { type: '' })).toEqual(initialState)
+      expect(reducer(initialState, { type: 'hola' })).toEqual(initialState)
    })
 
    /* Testing Reducer Action */
