@@ -1,16 +1,8 @@
-/* eslint-disable indent */
-import { Item, Action } from '@src/interfaces'
+import { combineReducers } from 'redux'
+import photoReducer from './photos'
 
-export const DO_SOMETHING = 'DO_SOMETHING'
+const reducers = combineReducers({
+   photos: photoReducer
+})
 
-const reducer = (state: Item[] = [], action: Action): Item[] => {
-   switch (action.type) {
-      case DO_SOMETHING:
-         return [...state, action.payload]
-
-      default:
-         return state
-   }
-}
-
-export default reducer
+export default reducers

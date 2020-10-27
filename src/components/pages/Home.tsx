@@ -1,12 +1,13 @@
 import React from 'react'
 
 /* Organinsms */
-import { Header } from '@components/organisms'
+import { Header, PhotosGrid } from '@components/organisms'
 
 const Home = (): JSX.Element => {
    return (
       <React.Fragment>
          <Header />
+         <PhotosGrid />
       </React.Fragment>
    )
 }
