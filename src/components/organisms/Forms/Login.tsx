@@ -1,6 +1,5 @@
 import React, { FormEvent, useState } from 'react'
 import axios, { AxiosError } from 'axios'
-import { useHistory } from 'react-router-dom'
 
 /* Config */
 import config from '@src/config'
@@ -23,7 +22,7 @@ import {
 import { Wrapper } from '@components/atoms'
 
 /* Constants */
-import { routes, endpoints } from '@src/constants'
+import { routes, endpoints, localStorageItems } from '@src/constants'
 
 /* Utils */
 import handleErrors from '@src/utils/handleErrors'
@@ -37,7 +36,6 @@ const Login = (): JSX.Element => {
    const [password, setPassword] = useState('')
    const [error, setError] = useState<AxiosError | null>(null)
    const [loading, setLoading] = useState(false)
-   const history = useHistory()
    const isInvalid = !username || !password
 
    /* Methods */
@@ -56,16 +54,15 @@ const Login = (): JSX.Element => {
             password
          }
       })
-         .then(() => {
-            // TODO: Control token
-            history.replace('/')
+         .then(({ data }) => {
+            localStorage.setItem(localStorageItems.TOKEN, data.accessToken)
+            window.location.reload()
          })
          .catch((err: AxiosError) => {
             setError(err)
             setLoading(false)
          })
    }
-
    return (
       <Container>
          <Wrapper breakpoint={screens.xs}>
