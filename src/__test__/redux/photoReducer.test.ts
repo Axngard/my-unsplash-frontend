@@ -1,4 +1,4 @@
-import reducer, { DO_SOMETHING } from '@src/redux/reducer'
+import reducer, { DO_SOMETHING } from '@src/redux/reducer/photos'
 import ItemMock from '@src/__mocks__/item.mock'
 import initialState from '@src/utils/items'
 
