@@ -6,6 +6,7 @@ import axios, { AxiosError } from 'axios'
 
 /* Styles */
 import { Container, Text, Anchor } from './styles'
+import { screens } from '@src/styles/theme'
 
 /* Semantic UI */
 import {
@@ -20,7 +21,6 @@ import {
 
 /* Molecules */
 import { Wrapper } from '@components/atoms'
-import { screens } from '@src/styles/theme'
 
 /* Constants */
 import { routes, endpoints } from '@src/constants'
@@ -33,15 +33,17 @@ import handleErrors from '@src/utils/handleErrors'
 
 const Login = (): JSX.Element => {
    /* States */
-   const [username, setUsername] = useState('')
-   const [email, setEmail] = useState('')
-   const [password, setPassword] = useState('')
-   const [fullname, setFullname] = useState('')
    const [error, setError] = useState<AxiosError | null>(null)
    const [success, setSuccess] = useState(false)
    const [loading, setLoading] = useState(false)
+   const [user, setUser] = useState({
+      username: '',
+      email: '',
+      password: '',
+      fullName: ''
+   })
+   const isInvalid = !user.username || !user.email || !user.password
    const history = useHistory()
-   const isInvalid = !username || !email || !password
 
    /* Methods */
    const handleSubmit = (e: FormEvent) => {
@@ -54,12 +56,7 @@ const Login = (): JSX.Element => {
          method: 'POST',
          baseURL: config.SERVER_URL,
          url: endpoints.SIGNUP,
-         data: {
-            fullName: fullname,
-            username,
-            password,
-            email
-         }
+         data: user
       })
          .then(() => {
             setSuccess(true)
@@ -69,6 +66,13 @@ const Login = (): JSX.Element => {
             setError(err)
             setLoading(false)
          })
+   }
+
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setUser({
+         ...user,
+         [e.target.name]: e.target.value
+      })
    }
 
    return (
@@ -81,58 +85,42 @@ const Login = (): JSX.Element => {
                   control={Input}
                   label="Fullname"
                   type="text"
+                  name="fullName"
                   placeholder="Enter your fullname..."
                   error={null}
-                  value={fullname}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setFullname(target.value)
-                  }}
+                  onChange={handleChange}
                />
                <FormField
                   id="username"
                   control={Input}
                   label="Username"
                   type="text"
+                  name="username"
                   placeholder="Enter your username..."
                   error={null}
-                  value={username}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setUsername(target.value)
-                  }}
+                  onChange={handleChange}
                />
 
                <FormField
                   id="email"
                   control={Input}
                   label="Email"
+                  name="email"
                   type="email"
                   placeholder="Enter your email..."
                   error={null}
-                  value={email}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setEmail(target.value)
-                  }}
+                  onChange={handleChange}
                />
 
                <FormField
                   id="password"
                   control={Input}
                   label="Password"
+                  name="password"
                   type="password"
                   placeholder="Enter your password..."
                   error={null}
-                  value={password}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setPassword(target.value)
-                  }}
+                  onChange={handleChange}
                />
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message

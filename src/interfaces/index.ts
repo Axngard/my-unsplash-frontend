@@ -28,3 +28,10 @@ export interface Action {
    type: string
    payload?: any
 }
+
+export interface Token {
+   iat: number
+   userId: string
+   username: string
+   exp: number
+}
