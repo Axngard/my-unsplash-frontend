@@ -1,25 +1,25 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 
 /* Styles */
 import { Container, Grid } from './styles'
-
-/* Atoms */
-import { Wrapper } from '@components/atoms'
-import { State } from '@src/interfaces'
 import { screens } from '@src/styles/theme'
 
-const PhotosGrid = (): JSX.Element => {
+/* Atoms and Molecules */
+import { Wrapper } from '@components/atoms'
+import { PhotoCard } from '@components/molecules'
+
+/* Types */
+import { State } from '@src/interfaces'
+
+const PhotoGrid = (): JSX.Element => {
    const photos = useSelector((state: State) => state.photos)
-   const grid = useRef(null)
    return (
       <Container>
          <Wrapper breakpoint={screens.xl}>
-            <Grid ref={grid}>
+            <Grid>
                {photos.map((photo) => (
-                  <figure key={photo._id}>
-                     <img width="200" height="200" src={photo.url} alt="" />
-                  </figure>
+                  <PhotoCard key={photo._id} photo={photo} />
                ))}
             </Grid>
          </Wrapper>
@@ -27,4 +27,4 @@ const PhotosGrid = (): JSX.Element => {
    )
 }
 
-export default PhotosGrid
+export default PhotoGrid
