@@ -22,7 +22,7 @@ import {
 import { Wrapper } from '@components/atoms'
 
 /* Constants */
-import { routes, endpoints, localStorageItems } from '@src/constants'
+import { routes, endpoints, localStorageItems as item } from '@src/constants'
 
 /* Utils */
 import handleErrors from '@src/utils/handleErrors'
@@ -32,11 +32,13 @@ const Login = (): JSX.Element => {
    const { Field } = Form
 
    /* States */
-   const [username, setUsername] = useState('')
-   const [password, setPassword] = useState('')
    const [error, setError] = useState<AxiosError | null>(null)
    const [loading, setLoading] = useState(false)
-   const isInvalid = !username || !password
+   const [user, setUser] = useState({
+      username: '',
+      password: ''
+   })
+   const isInvalid = !user.password || !user.username
 
    /* Methods */
    const handleSubmit = (e: FormEvent) => {
@@ -49,13 +51,10 @@ const Login = (): JSX.Element => {
          method: 'POST',
          baseURL: config.SERVER_URL,
          url: endpoints.LOGIN,
-         data: {
-            username,
-            password
-         }
+         data: user
       })
          .then(({ data }) => {
-            localStorage.setItem(localStorageItems.TOKEN, data.accessToken)
+            localStorage.setItem(item.TOKEN, data.accessToken)
             window.location.reload()
          })
          .catch((err: AxiosError) => {
@@ -63,39 +62,38 @@ const Login = (): JSX.Element => {
             setLoading(false)
          })
    }
+
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setUser({
+         ...user,
+         [e.target.name]: e.target.value
+      })
+   }
    return (
       <Container>
          <Wrapper breakpoint={screens.xs}>
             <Form error={!!error} onSubmit={handleSubmit} method="POST">
                <Header as="h2">Login</Header>
                <Field
+                  name="username"
                   id="username"
                   control={Input}
                   label="Username"
                   type="text"
                   placeholder="Enter your username..."
                   error={null}
-                  value={username}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setUsername(target.value)
-                  }}
+                  onChange={handleChange}
                />
 
                <Field
                   id="password"
                   control={Input}
+                  name="password"
                   label="Password"
                   type="password"
                   placeholder="Enter your password..."
                   error={null}
-                  value={password}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setPassword(target.value)
-                  }}
+                  onChange={handleChange}
                />
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message

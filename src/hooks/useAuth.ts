@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react'
 /* Constants */
 import { localStorageItems as items } from '@src/constants'
 
-const useAuth = (): string | null => {
+const useAuth = (): { token: string | null } => {
    const [token, setToken] = useState(() => {
       const token = localStorage.getItem(items.TOKEN)
       return token || null
    })
 
-   const handleChangeStorage = () => {
+   const handleChangeStorage = (/* e: WindowEventMap['storage'] */) => {
       setToken(() => {
          const token = localStorage.getItem(items.TOKEN)
          return token || null
@@ -24,7 +24,7 @@ const useAuth = (): string | null => {
       }
    }, [])
 
-   return token
+   return { token }
 }
 
 export default useAuth

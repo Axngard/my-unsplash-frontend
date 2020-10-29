@@ -21,7 +21,7 @@ import { routes } from '@src/constants'
 import useAuth from './hooks/useAuth'
 
 const App = (): JSX.Element => {
-   const token = useAuth()
+   const { token } = useAuth()
 
    return (
       <React.Fragment>
