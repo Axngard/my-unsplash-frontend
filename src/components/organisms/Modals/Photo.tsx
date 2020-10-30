@@ -46,6 +46,7 @@ const ModalPhoto = ({ trigger, url, labels, user }: Props): JSX.Element => {
 
                <List horizontal>
                   {labels.map((l, i) => {
+                     // TODO: Remove this
                      if (l === 'n/a') return
                      return (
                         <List.Item key={i}>
