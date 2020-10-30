@@ -7,7 +7,11 @@ import {
    Form,
    Button,
    Message,
-   Transition
+   Transition,
+   ModalActions,
+   ModalContent,
+   ModalHeader,
+   FormField
 } from 'semantic-ui-react'
 
 /* Types */
@@ -16,10 +20,6 @@ interface Props {
 }
 
 const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
-   /* Destructuting */
-   const { Header, Content, Actions } = Modal
-   const { Field } = Form
-
    /* States */
    const [open, setOpen] = useState(false)
    const [labelValue, setLabelValue] = useState('')
@@ -40,16 +40,17 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
 
    return (
       <Modal
+         centered={false}
          onOpen={() => setOpen(true)}
          onClose={() => setOpen(false)}
          open={open}
          trigger={trigger}
          size="tiny"
       >
-         <Header>Add a new photo</Header>
-         <Content>
+         <ModalHeader>Add a new photo</ModalHeader>
+         <ModalContent>
             <Form error={!!error} method="POST">
-               <Field
+               <FormField
                   placeholder="Enter tags"
                   fluid
                   icon="tags"
@@ -64,7 +65,7 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                   }
                />
 
-               <Field
+               <FormField
                   control={Input}
                   placeholder="www.myimage.com"
                   fluid
@@ -86,9 +87,9 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                   />
                </Transition>
             </Form>
-         </Content>
+         </ModalContent>
 
-         <Actions>
+         <ModalActions>
             <Button onClick={() => setOpen(false)} content="Cancel" basic />
             <Button
                content="Submit"
@@ -99,7 +100,7 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                onClick={HandleSubmit}
                loading={loading}
             />
-         </Actions>
+         </ModalActions>
       </Modal>
    )
 }

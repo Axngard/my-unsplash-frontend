@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { Container, Grid } from './styles'
 import { screens } from '@src/styles/theme'
 
-/* Atoms and Molecules */
+/* Components */
 import { Wrapper } from '@components/atoms'
 import { PhotoCard } from '@components/molecules'
 
