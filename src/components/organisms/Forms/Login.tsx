@@ -15,7 +15,8 @@ import {
    Button,
    Input,
    Message,
-   Transition
+   Transition,
+   FormField
 } from 'semantic-ui-react'
 
 /* Molecules */
@@ -28,9 +29,6 @@ import { routes, endpoints, localStorageItems as item } from '@src/constants'
 import handleErrors from '@src/utils/handleErrors'
 
 const Login = (): JSX.Element => {
-   /* Destructuring */
-   const { Field } = Form
-
    /* States */
    const [error, setError] = useState<AxiosError | null>(null)
    const [loading, setLoading] = useState(false)
@@ -53,7 +51,7 @@ const Login = (): JSX.Element => {
          url: endpoints.LOGIN,
          data: user
       })
-         .then(({ data }) => {
+         .then(async ({ data }) => {
             localStorage.setItem(item.TOKEN, data.accessToken)
             window.location.reload()
          })
@@ -69,12 +67,13 @@ const Login = (): JSX.Element => {
          [e.target.name]: e.target.value
       })
    }
+
    return (
       <Container>
          <Wrapper breakpoint={screens.xs}>
             <Form error={!!error} onSubmit={handleSubmit} method="POST">
                <Header as="h2">Login</Header>
-               <Field
+               <FormField
                   name="username"
                   id="username"
                   control={Input}
@@ -85,7 +84,7 @@ const Login = (): JSX.Element => {
                   onChange={handleChange}
                />
 
-               <Field
+               <FormField
                   id="password"
                   control={Input}
                   name="password"
