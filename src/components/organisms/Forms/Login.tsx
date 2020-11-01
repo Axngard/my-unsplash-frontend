@@ -51,7 +51,7 @@ const Login = (): JSX.Element => {
          url: endpoints.LOGIN,
          data: user
       })
-         .then(async ({ data }) => {
+         .then(({ data }) => {
             localStorage.setItem(item.TOKEN, data.accessToken)
             window.location.reload()
          })

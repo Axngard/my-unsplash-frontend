@@ -3,7 +3,8 @@ import React from 'react'
 /* Styles */
 import { ImageContainer, Img } from './styles'
 
-/* Semantic UI */
+/* Components */
+import { ModalPhoto } from '@components/organisms'
 
 /* Types */
 import { Photo } from '@src/interfaces'
@@ -13,11 +14,21 @@ interface Props {
 }
 
 const PhotoCard = ({ photo }: Props): JSX.Element => {
-   return (
-      <ImageContainer key={photo._id}>
-         <Img rounded src={photo.url} alt={`${photo.labels[0]} image`} />
+   /* Destructuring */
+   const { labels, url, user } = photo
+
+   const trigger = (
+      <ImageContainer>
+         <Img
+            loading="lazy"
+            rounded
+            src={url}
+            alt={`${labels[0]} image by ${user}`}
+         />
       </ImageContainer>
    )
+
+   return <ModalPhoto user={user} labels={labels} url={url} trigger={trigger} />
 }
 
 export default PhotoCard

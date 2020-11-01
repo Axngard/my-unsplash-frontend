@@ -6,7 +6,7 @@
    "scripts": {
       "build": "rimraf ./dist && webpack --mode production",
       "dev": "webpack-dev-server --mode development --open",
-      "start": "npm run build && serve ./dist --single",
+      "start": "npm run build && serve ./dist  -l 3000 --single",
       "test": "jest -o",
       "test:coverage": "jest --coverage",
       "test:watch": "jest --watch --verbose --findRelatedTests ./src/",

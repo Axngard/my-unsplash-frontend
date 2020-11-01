@@ -10,3 +10,7 @@ export enum screens {
 export enum colors {
    shadow = 'rgba(0, 0, 0, 0.09)'
 }
+
+export enum animations {
+   normal = 'ease-in-out 200ms'
+}
