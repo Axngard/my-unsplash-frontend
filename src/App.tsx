@@ -21,7 +21,7 @@ import { routes } from '@src/constants'
 import useAuth from './hooks/useAuth'
 
 const App = (): JSX.Element => {
-   const { token } = useAuth()
+   const { isValid } = useAuth()
 
    return (
       <React.Fragment>
@@ -29,13 +29,13 @@ const App = (): JSX.Element => {
          <Router>
             <Switch>
                <Route exact path={routes.HOME}>
-                  {token ? <Home /> : <Redirect to={routes.LOGIN} />}
+                  {isValid ? <Home /> : <Redirect to={routes.LOGIN} />}
                </Route>
                <Route exact path={routes.LOGIN}>
-                  {!token ? <Login /> : <Redirect to={routes.HOME} />}
+                  {!isValid ? <Login /> : <Redirect to={routes.HOME} />}
                </Route>
                <Route exact path={routes.SIGNUP}>
-                  {!token ? <Signup /> : <Redirect to={routes.HOME} />}
+                  {!isValid ? <Signup /> : <Redirect to={routes.HOME} />}
                </Route>
             </Switch>
          </Router>
