@@ -1,14 +1,11 @@
 import React, { FormEvent, useState } from 'react'
-import axios, { AxiosError } from 'axios'
-
-/* Config */
-import config from '@src/config'
 
 /* Styles */
 import { Container, Text, Anchor } from './styles'
 import { screens } from '@src/styles/theme'
 
-/* Semantic UI */
+/* Components */
+import { Wrapper } from '@components/atoms'
 import {
    Form,
    Header,
@@ -19,46 +16,33 @@ import {
    FormField
 } from 'semantic-ui-react'
 
-/* Molecules */
-import { Wrapper } from '@components/atoms'
-
 /* Constants */
-import { routes, endpoints, localStorageItems as item } from '@src/constants'
+import { routes } from '@src/constants'
 
 /* Utils */
 import handleErrors from '@src/utils/handleErrors'
 
+/* Redux */
+import { login } from '@src/redux/actions/authentication'
+import { useDispatch, useSelector } from 'react-redux'
+
+/* Types */
+import { State } from '@src/interfaces'
+
 const Login = (): JSX.Element => {
    /* States */
-   const [error, setError] = useState<AxiosError | null>(null)
-   const [loading, setLoading] = useState(false)
+   const dispatch = useDispatch()
    const [user, setUser] = useState({
       username: '',
       password: ''
    })
+   const { status, error } = useSelector((state: State) => state.auth)
    const isInvalid = !user.password || !user.username
 
    /* Methods */
    const handleSubmit = (e: FormEvent) => {
       e.preventDefault()
-
-      setLoading(true)
-      setError(null)
-
-      axios({
-         method: 'POST',
-         baseURL: config.SERVER_URL,
-         url: endpoints.LOGIN,
-         data: user
-      })
-         .then(async ({ data }) => {
-            localStorage.setItem(item.TOKEN, data.accessToken)
-            window.location.reload()
-         })
-         .catch((err: AxiosError) => {
-            setError(err)
-            setLoading(false)
-         })
+      dispatch(login(user))
    }
 
    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,8 +89,8 @@ const Login = (): JSX.Element => {
                </Transition>
 
                <Button
-                  loading={loading}
-                  disabled={isInvalid || loading}
+                  loading={status === 'loading'}
+                  disabled={isInvalid || status === 'loading'}
                   fluid
                   primary
                   type="submit"

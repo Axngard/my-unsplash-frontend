@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import photoReducer from './photos'
+import auth from './authentication'
+import photos from './photos'
 
 const reducers = combineReducers({
-   photos: photoReducer
+   auth,
+   photos
 })
 
 export default reducers

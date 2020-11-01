@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios'
+
 export type labels =
    | 'Finance'
    | 'Health Care'
@@ -23,9 +25,16 @@ export interface Photo {
 
 export interface State {
    photos: Photo[]
+   auth: {
+      status: string
+      error: null | AxiosError
+      data: {
+         loggedIn: boolean
+      }
+   }
 }
 export interface Action {
-   type: string
+   type: string | number
    payload?: any
 }
 
