@@ -1,9 +1,6 @@
 import React, { FormEvent, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-/* Axios */
-import axios, { AxiosError } from 'axios'
-
 /* Styles */
 import { Container, Text, Anchor } from './styles'
 import { screens } from '@src/styles/theme'
@@ -23,49 +20,35 @@ import {
 import { Wrapper } from '@components/atoms'
 
 /* Constants */
-import { routes, endpoints } from '@src/constants'
-
-/* Config */
-import config from '@src/config'
+import { routes } from '@src/constants'
 
 /* Utils */
 import handleErrors from '@src/utils/handleErrors'
 
+/* Redux */
+import { useDispatch, useSelector } from 'react-redux'
+import { register } from '@src/redux/actions/register.action'
+
+/* Types */
+import { State } from '@src/interfaces'
+
 const Login = (): JSX.Element => {
    /* States */
-   const [error, setError] = useState<AxiosError | null>(null)
-   const [success, setSuccess] = useState(false)
-   const [loading, setLoading] = useState(false)
+   const dispatch = useDispatch()
    const [user, setUser] = useState({
       username: '',
       email: '',
       password: '',
       fullName: ''
    })
+   const { error, status } = useSelector((state: State) => state.register)
    const isInvalid = !user.username || !user.email || !user.password
    const history = useHistory()
 
    /* Methods */
    const handleSubmit = (e: FormEvent) => {
       e.preventDefault()
-
-      setLoading(true)
-      setError(null)
-
-      axios({
-         method: 'POST',
-         baseURL: config.SERVER_URL,
-         url: endpoints.SIGNUP,
-         data: user
-      })
-         .then(() => {
-            setSuccess(true)
-            history.replace('/login')
-         })
-         .catch((err: AxiosError) => {
-            setError(err)
-            setLoading(false)
-         })
+      dispatch(register(user))
    }
 
    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,10 +58,19 @@ const Login = (): JSX.Element => {
       })
    }
 
+   /* Effects */
+   React.useEffect(() => {
+      if (status === 'success') history.push(routes.LOGIN)
+   }, [status])
+
    return (
       <Container>
          <Wrapper breakpoint={screens.xs}>
-            <Form success={success} error={!!error} onSubmit={handleSubmit}>
+            <Form
+               success={status === 'success'}
+               error={!!error}
+               onSubmit={handleSubmit}
+            >
                <Header as="h2">Signup</Header>
                <FormField
                   id="fullname"
@@ -132,7 +124,11 @@ const Login = (): JSX.Element => {
                   />
                </Transition>
 
-               <Transition visible={success} animation="fade" duration={500}>
+               <Transition
+                  visible={status === 'success'}
+                  animation="fade"
+                  duration={500}
+               >
                   <Message
                      success
                      header="User registered"
@@ -141,8 +137,8 @@ const Login = (): JSX.Element => {
                </Transition>
 
                <Button
-                  loading={loading}
-                  disabled={isInvalid || loading}
+                  loading={status === 'loading'}
+                  disabled={isInvalid || status === 'loading'}
                   fluid
                   primary
                   type="submit"

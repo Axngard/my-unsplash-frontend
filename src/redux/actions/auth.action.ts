@@ -1,17 +1,21 @@
 import config from '@src/config'
-import { endpoints } from '@src/constants'
-import items from '@src/constants/localStorageItems'
-import { Action } from '@src/interfaces'
-import axios, { AxiosError } from 'axios'
 import { verify } from 'jsonwebtoken'
+import axios, { AxiosError } from 'axios'
+
+/* Redux */
 import { Dispatch } from 'redux'
 
+/* Constants */
+import { endpoints } from '@src/constants'
+import items from '@src/constants/localStorageItems'
+
 /* Types */
-export enum cases {
-   LOGIN_REQUEST,
-   LOGIN_SUCCESS,
-   LOGIN_FAILED,
-   LOGIN_IDLE
+import { Action } from '@src/interfaces'
+export enum types {
+   LOGIN_REQUEST = 'LOGIN_REQUEST',
+   LOGIN_SUCCESS = 'LOGIN_SUCCESS,',
+   LOGIN_FAILED = 'LOGIN_FAILED',
+   LOGIN_IDLE = 'LOGIN_IDLE'
 }
 
 interface User {
@@ -21,28 +25,28 @@ interface User {
 
 /* Actions */
 export const loginSuccess = (accessToken: string): Action => ({
-   type: cases.LOGIN_SUCCESS,
+   type: types.LOGIN_SUCCESS,
    payload: accessToken
 })
 
 export const loginFailed = (error: AxiosError): Action => ({
-   type: cases.LOGIN_FAILED,
+   type: types.LOGIN_FAILED,
    payload: error
 })
 
 export const loginIdle = (): Action => ({
-   type: cases.LOGIN_IDLE
+   type: types.LOGIN_IDLE
 })
 
 export const loginRequest = (): Action => ({
-   type: cases.LOGIN_REQUEST
+   type: types.LOGIN_REQUEST
 })
 
-export const login = (user: User) => (dispatch: Dispatch): void => {
+export const login = (user: User) => (dispatch: Dispatch): Promise<void> => {
    dispatch(loginIdle())
    dispatch(loginRequest())
 
-   axios({
+   return axios({
       method: 'POST',
       baseURL: config.SERVER_URL,
       url: endpoints.LOGIN,

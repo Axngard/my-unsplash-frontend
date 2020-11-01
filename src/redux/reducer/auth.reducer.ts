@@ -4,7 +4,7 @@ import { verify } from 'jsonwebtoken'
 import config from '@src/config'
 
 /* Redux */
-import { cases } from '../actions/authentication'
+import { types } from '../actions/auth.action'
 
 /* Contantans */
 import { reducerStatuses as status } from '@src/constants'
@@ -43,25 +43,25 @@ function authenticationReducer(
    { type, payload }: Action
 ): State {
    switch (type) {
-      case cases.LOGIN_REQUEST:
+      case types.LOGIN_REQUEST:
          return {
             ...state,
             status: status.LOADING
          }
-      case cases.LOGIN_SUCCESS:
+      case types.LOGIN_SUCCESS:
          return {
             ...state,
             status: status.SUCCESS,
             data: { loggedIn: true }
          }
-      case cases.LOGIN_FAILED:
+      case types.LOGIN_FAILED:
          return {
             ...state,
             status: status.FAILED,
             data: { loggedIn: false },
             error: payload
          }
-      case cases.LOGIN_IDLE: {
+      case types.LOGIN_IDLE: {
          return {
             ...state,
             status: status.IDLE,

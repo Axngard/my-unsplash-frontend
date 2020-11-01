@@ -23,18 +23,24 @@ export interface Photo {
    createdAt: string
 }
 
+type status = 'idle' | 'success' | 'failed' | 'loading'
 export interface State {
    photos: Photo[]
    auth: {
-      status: string
+      status: status
       error: null | AxiosError
       data: {
          loggedIn: boolean
       }
    }
+   register: {
+      status: status
+      error: null | AxiosError
+      data: null
+   }
 }
 export interface Action {
-   type: string | number
+   type: string
    payload?: any
 }
 

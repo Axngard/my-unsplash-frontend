@@ -44,8 +44,7 @@ module.exports = {
       splitChunks: {
          name: 'commons',
          chunks: 'all',
-         minSize: 0,
-         maxSize: 244000
+         minSize: 0
       }
    },
    plugins: [

@@ -23,7 +23,7 @@ import { routes } from '@src/constants'
 import handleErrors from '@src/utils/handleErrors'
 
 /* Redux */
-import { login } from '@src/redux/actions/authentication'
+import { login } from '@src/redux/actions/auth.action'
 import { useDispatch, useSelector } from 'react-redux'
 
 /* Types */
