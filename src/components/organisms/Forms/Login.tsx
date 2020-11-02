@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React from 'react'
 
 /* Styles */
 import { Container, Text, Anchor } from './styles'
@@ -28,11 +28,12 @@ import { useDispatch, useSelector } from 'react-redux'
 
 /* Types */
 import { State } from '@src/interfaces'
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>
 
 const Login = (): JSX.Element => {
    /* States */
    const dispatch = useDispatch()
-   const [user, setUser] = useState({
+   const [user, setUser] = React.useState({
       username: '',
       password: ''
    })
@@ -40,12 +41,12 @@ const Login = (): JSX.Element => {
    const isInvalid = !user.password || !user.username
 
    /* Methods */
-   const handleSubmit = (e: FormEvent) => {
+   const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault()
       dispatch(login(user))
    }
 
-   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+   const handleChange = (e: ChangeEvent) => {
       setUser({
          ...user,
          [e.target.name]: e.target.value

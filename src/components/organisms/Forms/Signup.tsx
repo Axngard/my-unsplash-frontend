@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 
 /* Styles */
@@ -35,7 +35,7 @@ import { State } from '@src/interfaces'
 const Login = (): JSX.Element => {
    /* States */
    const dispatch = useDispatch()
-   const [user, setUser] = useState({
+   const [user, setUser] = React.useState({
       username: '',
       email: '',
       password: '',
@@ -46,7 +46,7 @@ const Login = (): JSX.Element => {
    const history = useHistory()
 
    /* Methods */
-   const handleSubmit = (e: FormEvent) => {
+   const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault()
       dispatch(register(user))
    }

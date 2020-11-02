@@ -22,14 +22,17 @@ import { useSelector } from 'react-redux'
 
 /* Types */
 import { State } from './interfaces'
+import items from './constants/localStorageItems'
 
 const App = (): JSX.Element => {
    /* States */
    const { loggedIn } = useSelector((state: State) => state.auth.data)
 
    /* Methods */
-   const handleStorage = () => {
-      window.location.reload()
+   const handleStorage = (e: WindowEventMap['storage']) => {
+      if (e.key === items.TOKEN) {
+         window.location.reload()
+      }
    }
 
    /* Life Circle */

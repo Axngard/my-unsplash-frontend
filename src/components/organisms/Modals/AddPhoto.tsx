@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 /* Semantic UI */
 import {
@@ -21,11 +21,11 @@ interface Props {
 
 const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
    /* States */
-   const [open, setOpen] = useState(false)
-   const [labelValue, setLabelValue] = useState('')
-   const [photoURL, setPhotoURL] = useState('')
-   const [error, setError] = useState<Error | null>(null)
-   const [loading, setLoading] = useState(false)
+   const [open, setOpen] = React.useState(false)
+   const [labelValue, setLabelValue] = React.useState('')
+   const [photoURL, setPhotoURL] = React.useState('')
+   const [error, setError] = React.useState<Error | null>(null)
+   const [loading, setLoading] = React.useState(false)
    const isInvalid = !labelValue || !photoURL
 
    /* Methods */
