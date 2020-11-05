@@ -9,7 +9,7 @@ import {
 /* Pages */
 import { Login, Signup, Home } from '@components/pages'
 
-/* Global Styles */
+/* Styles */
 import GlobalStyles from '@src/styles/GlobalStyle'
 import { Global } from '@emotion/core'
 import 'semantic-ui-css/semantic.min.css'
@@ -17,11 +17,28 @@ import 'semantic-ui-css/semantic.min.css'
 /* Constants */
 import { routes } from '@src/constants'
 
-/* Hooks */
-import useAuth from './hooks/useAuth'
+/* Redux */
+import { useSelector } from 'react-redux'
+
+/* Types */
+import { State } from './interfaces'
 
 const App = (): JSX.Element => {
-   const { isValid } = useAuth()
+   /* States */
+   const { loggedIn } = useSelector((state: State) => state.auth.data)
+
+   /* Methods */
+   const handleStorage = () => {
+      window.location.reload()
+   }
+
+   /* Life Circle */
+   React.useEffect(() => {
+      window.addEventListener('storage', handleStorage)
+      return () => {
+         window.removeEventListener('storage', handleStorage)
+      }
+   }, [])
 
    return (
       <React.Fragment>
@@ -29,13 +46,13 @@ const App = (): JSX.Element => {
          <Router>
             <Switch>
                <Route exact path={routes.HOME}>
-                  {isValid ? <Home /> : <Redirect to={routes.LOGIN} />}
+                  {loggedIn ? <Home /> : <Redirect to={routes.LOGIN} />}
                </Route>
                <Route exact path={routes.LOGIN}>
-                  {!isValid ? <Login /> : <Redirect to={routes.HOME} />}
+                  {!loggedIn ? <Login /> : <Redirect to={routes.HOME} />}
                </Route>
                <Route exact path={routes.SIGNUP}>
-                  {!isValid ? <Signup /> : <Redirect to={routes.HOME} />}
+                  {!loggedIn ? <Signup /> : <Redirect to={routes.HOME} />}
                </Route>
             </Switch>
          </Router>
