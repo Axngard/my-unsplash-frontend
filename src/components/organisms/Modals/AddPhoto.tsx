@@ -1,5 +1,8 @@
 import React from 'react'
 
+/* Redux */
+import { useDispatch, useSelector } from 'react-redux'
+
 /* Semantic UI */
 import {
    Modal,
@@ -11,10 +14,14 @@ import {
    ModalActions,
    ModalContent,
    ModalHeader,
-   FormField
+   FormField,
+   Image,
+   Segment
 } from 'semantic-ui-react'
 
 /* Types */
+import { State } from '@src/interfaces'
+import { uploadImage } from '@src/redux/actions/uploadImage.action'
 interface Props {
    trigger: React.ReactNode
 }
@@ -24,19 +31,33 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
    const [open, setOpen] = React.useState(false)
    const [labelValue, setLabelValue] = React.useState('')
    const [photoURL, setPhotoURL] = React.useState('')
-   const [error, setError] = React.useState<Error | null>(null)
-   const [loading, setLoading] = React.useState(false)
    const isInvalid = !labelValue || !photoURL
+   const inputImage = React.useRef<HTMLInputElement>(null)
+   const { error, status } = useSelector((state: State) => state.uploadImage)
+   const dispatch = useDispatch()
 
    /* Methods */
-   const HandleSubmit = () => {
-      setError(null)
-      setLoading(true)
-      setTimeout(() => {
-         setError(new Error('Error testing'))
-         setLoading(false)
-      }, 1000)
+   const handleSubmit = (/* e: React.FormEvent */) => {
+      if (inputImage.current && inputImage.current.form) {
+         dispatch(uploadImage(inputImage.current?.form))
+      }
    }
+
+   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault()
+      if (e.target.form) {
+         const formData = new FormData(e.target.form)
+         const file = formData.get('file')
+
+         const image = URL.createObjectURL(file)
+         setPhotoURL(image)
+      }
+   }
+
+   /* Effects */
+   React.useEffect(() => {
+      if (status === 'success') setOpen(false)
+   }, [status])
 
    return (
       <Modal
@@ -49,10 +70,11 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
       >
          <ModalHeader>Add a new photo</ModalHeader>
          <ModalContent>
-            <Form error={!!error} method="POST">
+            <Form onSubmit={handleSubmit} error={!!error} method="POST">
                <FormField
                   placeholder="Enter tags"
                   fluid
+                  name="tags"
                   icon="tags"
                   iconPosition="left"
                   type="text"
@@ -64,25 +86,40 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                      setLabelValue(target.value)
                   }
                />
+               <input
+                  onChange={handleUpload}
+                  ref={inputImage}
+                  type="file"
+                  name="file"
+                  hidden={true}
+               />
 
                <FormField
-                  control={Input}
-                  placeholder="www.myimage.com"
                   fluid
-                  icon="image"
-                  iconPosition="left"
-                  type="text"
-                  label="Photo URL"
-                  id="url"
-                  value={photoURL}
-                  onChange={({ target }: React.ChangeEvent<HTMLInputElement>) =>
-                     setPhotoURL(target.value)
-                  }
+                  primary
+                  basic
+                  content="Upload image"
+                  control={Button}
+                  icon="upload"
+                  id="image"
+                  type="button"
+                  label="Image"
+                  onClick={() => inputImage.current?.click()}
                />
+               <Segment tertiary hidden={!photoURL}>
+                  <Image
+                     centered
+                     src={photoURL}
+                     size="small"
+                     rounded
+                     bordered
+                  />
+               </Segment>
+
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message
                      error
-                     header={error?.name || 'Error loading image'}
+                     header={error?.name || 'Error loaded image'}
                      content={error?.message}
                   />
                </Transition>
@@ -96,9 +133,10 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                labelPosition="right"
                icon="checkmark"
                positive
-               disabled={isInvalid || loading}
-               onClick={HandleSubmit}
-               loading={loading}
+               disabled={isInvalid || status === 'loading'}
+               loading={status === 'loading'}
+               type="submit"
+               onClick={handleSubmit}
             />
          </ModalActions>
       </Modal>

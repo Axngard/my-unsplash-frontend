@@ -19,12 +19,7 @@ const PhotoCard = ({ photo }: Props): JSX.Element => {
 
    const trigger = (
       <ImageContainer>
-         <Img
-            loading="lazy"
-            rounded
-            src={url}
-            alt={`${labels[0]} image by ${user}`}
-         />
+         <Img rounded src={url} alt={`${labels[0]} image by ${user}`} />
       </ImageContainer>
    )
 
