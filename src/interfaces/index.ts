@@ -38,10 +38,13 @@ export interface State {
       error: null | AxiosError
       data: null
    }
-}
-export interface Action {
-   type: string
-   payload?: any
+   uploadImage: {
+      status: status
+      error: null | AxiosError
+      data: {
+         image: string
+      }
+   }
 }
 
 export interface Token {

@@ -10,7 +10,6 @@ import { endpoints } from '@src/constants'
 import items from '@src/constants/localStorageItems'
 
 /* Types */
-import { Action } from '@src/interfaces'
 export enum types {
    LOGIN_REQUEST = 'LOGIN_REQUEST',
    LOGIN_SUCCESS = 'LOGIN_SUCCESS,',
@@ -23,22 +22,46 @@ interface User {
    password: string
 }
 
+interface loginSuccessAction {
+   type: typeof types.LOGIN_SUCCESS
+   payload: string
+}
+
+interface loginFailedAction {
+   type: typeof types.LOGIN_FAILED
+   payload: AxiosError
+}
+
+interface loginIdleAction {
+   type: typeof types.LOGIN_IDLE
+}
+
+interface loginRequestAction {
+   type: typeof types.LOGIN_REQUEST
+}
+
+export type loginActions =
+   | loginFailedAction
+   | loginIdleAction
+   | loginRequestAction
+   | loginSuccessAction
+
 /* Actions */
-export const loginSuccess = (accessToken: string): Action => ({
+export const loginSuccess = (accessToken: string): loginSuccessAction => ({
    type: types.LOGIN_SUCCESS,
    payload: accessToken
 })
 
-export const loginFailed = (error: AxiosError): Action => ({
+export const loginFailed = (error: AxiosError): loginFailedAction => ({
    type: types.LOGIN_FAILED,
    payload: error
 })
 
-export const loginIdle = (): Action => ({
+export const loginIdle = (): loginIdleAction => ({
    type: types.LOGIN_IDLE
 })
 
-export const loginRequest = (): Action => ({
+export const loginRequest = (): loginRequestAction => ({
    type: types.LOGIN_REQUEST
 })
 

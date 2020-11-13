@@ -4,14 +4,12 @@ import { verify } from 'jsonwebtoken'
 import config from '@src/config'
 
 /* Redux */
-import { types } from '../actions/auth.action'
+import { loginActions, types } from '../actions/auth.action'
 
 /* Contantans */
 import { reducerStatuses as status } from '@src/constants'
 import items from '@src/constants/localStorageItems'
 
-/* Types */
-import { Action } from '@src/interfaces'
 interface State {
    data: {
       loggedIn: boolean
@@ -40,9 +38,9 @@ const initialState: State = {
 
 function authenticationReducer(
    state = initialState,
-   { type, payload }: Action
+   action: loginActions
 ): State {
-   switch (type) {
+   switch (action.type) {
       case types.LOGIN_REQUEST:
          return {
             ...state,
@@ -59,7 +57,7 @@ function authenticationReducer(
             ...state,
             status: status.FAILED,
             data: { loggedIn: false },
-            error: payload
+            error: action.payload
          }
       case types.LOGIN_IDLE: {
          return {
