@@ -1,6 +1,6 @@
 /* Redux */
 import config from '@src/config'
-import { endpoints } from '@src/constants'
+import { endpoints, localStorageItems } from '@src/constants'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { Dispatch } from 'redux'
 
@@ -63,14 +63,24 @@ export function uploadImage(form: HTMLFormElement) {
    return (dispatch: Dispatch): Promise<any> => {
       dispatch(uploadImageIdle())
       dispatch(uploadImageRequest())
-
+      const accessToken = localStorage.getItem(localStorageItems.TOKEN)
       const formData = new FormData(form)
+
+      const labelsArray = (formData.get('tags') as string).split(/[,\s-]+/)
+
+      labelsArray.forEach((label) => {
+         formData.append('labels', label)
+      })
 
       return axios({
          url: endpoints.UPLOAD_IMAGE,
          data: formData,
          method: 'POST',
-         baseURL: config.SERVER_URL
+         baseURL: config.SERVER_URL,
+         headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken}`
+         }
       })
          .then(({ data }: AxiosResponse) => {
             dispatch(uploadImageSuccess(data))

@@ -13,6 +13,7 @@ import items from '@src/constants/localStorageItems'
 interface State {
    data: {
       loggedIn: boolean
+      accessToken: null | string
    }
    status: status
    error: null | Error | AxiosError
@@ -31,7 +32,7 @@ try {
 }
 
 const initialState: State = {
-   data: { loggedIn: !!isLogged },
+   data: { loggedIn: !!isLogged, accessToken: null },
    status: status.IDLE,
    error: null
 }
@@ -50,13 +51,13 @@ function authenticationReducer(
          return {
             ...state,
             status: status.SUCCESS,
-            data: { loggedIn: true }
+            data: { loggedIn: true, accessToken: action.payload }
          }
       case types.LOGIN_FAILED:
          return {
             ...state,
             status: status.FAILED,
-            data: { loggedIn: false },
+            data: { loggedIn: false, accessToken: null },
             error: action.payload
          }
       case types.LOGIN_IDLE: {

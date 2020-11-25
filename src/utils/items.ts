@@ -39,7 +39,7 @@ const photos: Photo[] = [
    },
    {
       _id: '9a0f16d9-c3eb-4a2b-8879-7f46e861edd0',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=',
       labels: ['Miscellaneous', 'n/a'],
       user: 'Angelo Zambrano',
       likes: 77,
@@ -129,7 +129,7 @@ const photos: Photo[] = [
    },
    {
       _id: 'a58e1042-d751-4d56-98c1-b4730d405a58',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=1',
       labels: ['n/a', 'Consumer Services'],
       user: 'Angelo Zambrano',
       likes: 78,
@@ -138,7 +138,7 @@ const photos: Photo[] = [
    },
    {
       _id: '89f36420-e84d-4117-a51e-2dac296b3c7a',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=2',
       labels: ['Health Care', 'Consumer Durables'],
       user: 'Angelo Zambrano',
       likes: 1,
@@ -147,7 +147,7 @@ const photos: Photo[] = [
    },
    {
       _id: 'acddf5bb-9a8c-4f76-be7e-1fc2d96fef53',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=3',
       labels: ['Health Care', 'Capital Goods'],
       user: 'Angelo Zambrano',
       likes: 75,
@@ -156,7 +156,7 @@ const photos: Photo[] = [
    },
    {
       _id: '8aa37dd9-5585-4a0e-bf6b-49593659b5c6',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=4',
       labels: ['n/a', 'Consumer Services'],
       user: 'Angelo Zambrano',
       likes: 23,
@@ -165,7 +165,7 @@ const photos: Photo[] = [
    },
    {
       _id: 'ee4a2ef4-c9ee-4892-b517-7726a54bcedc',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=5',
       labels: ['Health Care', 'Public Utilities'],
       user: 'Angelo Zambrano',
       likes: 17,
@@ -174,7 +174,7 @@ const photos: Photo[] = [
    },
    {
       _id: 'a1aedff7-840a-4307-bfcc-2c6fffad15c0',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=6',
       labels: ['Consumer Services', 'Health Care'],
       user: 'Angelo Zambrano',
       likes: 30,
@@ -183,7 +183,7 @@ const photos: Photo[] = [
    },
    {
       _id: '814f952a-55c0-4d02-953c-0a93fcdb83b0',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=7',
       labels: ['Finance', 'Miscellaneous'],
       user: 'Angelo Zambrano',
       likes: 72,
@@ -192,7 +192,7 @@ const photos: Photo[] = [
    },
    {
       _id: '13195e6f-a42f-4d03-9100-cd8aaf1e1323',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=8',
       labels: ['Public Utilities', 'Finance'],
       user: 'Angelo Zambrano',
       likes: 32,
@@ -201,7 +201,7 @@ const photos: Photo[] = [
    },
    {
       _id: '98661321-7f8f-4895-b5c5-9a1ac9938cea',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=9',
       labels: ['Health Care', 'Consumer Services'],
       user: 'Angelo Zambrano',
       likes: 15,
@@ -210,7 +210,7 @@ const photos: Photo[] = [
    },
    {
       _id: '2a9c9ceb-c3fb-4dcc-934f-c4c96899a6e6',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=10',
       labels: ['Health Care', 'n/a'],
       user: 'Angelo Zambrano',
       likes: 65,
@@ -219,7 +219,7 @@ const photos: Photo[] = [
    },
    {
       _id: '6d45b8d5-f5ae-4441-b084-98c88a93c220',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=11',
       labels: ['Basic Industries', 'Health Care'],
       user: 'Angelo Zambrano',
       likes: 77,
@@ -228,7 +228,7 @@ const photos: Photo[] = [
    },
    {
       _id: '6a1f7f84-8e5d-490f-b9c7-3a715d5c41d5',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=12',
       labels: ['Health Care', 'Basic Industries'],
       user: 'Angelo Zambrano',
       likes: 30,
@@ -237,7 +237,7 @@ const photos: Photo[] = [
    },
    {
       _id: '5e826647-a484-479b-ad3f-93a2f307ade0',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=13',
       labels: ['n/a', 'n/a'],
       user: 'Angelo Zambrano',
       likes: 52,
@@ -246,7 +246,7 @@ const photos: Photo[] = [
    },
    {
       _id: 'c3b1e92d-1e5a-4954-9b7d-94dfe56e8d01',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=14',
       labels: ['n/a', 'n/a'],
       user: 'Angelo Zambrano',
       likes: 14,
@@ -255,7 +255,7 @@ const photos: Photo[] = [
    },
    {
       _id: 'cca86933-d803-46ba-9c29-e518bed47072',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=15',
       labels: ['n/a', 'Capital Goods'],
       user: 'Angelo Zambrano',
       likes: 52,
@@ -264,7 +264,7 @@ const photos: Photo[] = [
    },
    {
       _id: 'eb0507ec-c4ec-421a-8aef-b9b93749ca5b',
-      url: 'https://picsum.photos/600/500',
+      url: 'https://picsum.photos/600/500?random=16',
       labels: ['Public Utilities', 'Consumer Non-Durables'],
       user: 'Angelo Zambrano',
       likes: 94,

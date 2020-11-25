@@ -7,7 +7,7 @@ module.exports = {
    entry: path.resolve(__dirname, 'src', 'index.tsx'),
    output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.[hash].js',
+      filename: 'src/bundle.[hash].js',
       publicPath: '/',
       chunkFilename: '[name].[hash].js'
    },
@@ -24,7 +24,10 @@ module.exports = {
          },
          {
             test: /\.(png|ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-            loader: 'file-loader'
+            loader: 'file-loader',
+            options: {
+               name: 'assets/[name].[ext]'
+            }
          }
       ]
    },
@@ -42,9 +45,18 @@ module.exports = {
    },
    optimization: {
       splitChunks: {
-         name: 'commons',
-         chunks: 'all',
-         minSize: 0
+         cacheGroups: {
+            vendor: {
+               name: 'vendors',
+               test: /[\\/]node_modules[\\/]/,
+               chunks: 'all'
+            },
+            common: {
+               test: /[\\/]src[\\/]components[\\/]/,
+               minSize: 0,
+               chunks: 'all'
+            }
+         }
       }
    },
    plugins: [
@@ -53,9 +65,9 @@ module.exports = {
          filename: 'index.html'
       }),
       new MiniCssExtractPlugin({
-         filename: 'assets/[name].[hash].css',
+         filename: 'styles/[name].[chunkhash].css',
          chunkFilename: '[name].css'
       }),
-      new Dotenv({ path: './.env.development' })
+      new Dotenv({ path: './.env' })
    ]
 }

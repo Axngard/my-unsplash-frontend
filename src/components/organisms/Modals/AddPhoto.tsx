@@ -47,7 +47,7 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
       e.preventDefault()
       if (e.target.form) {
          const formData = new FormData(e.target.form)
-         const file = formData.get('file')
+         const file = formData.get('image')
 
          const image = URL.createObjectURL(file)
          setPhotoURL(image)
@@ -72,7 +72,7 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
          <ModalContent>
             <Form onSubmit={handleSubmit} error={!!error} method="POST">
                <FormField
-                  placeholder="Enter tags"
+                  placeholder="Enter tags - (Separate with space and comma)"
                   fluid
                   name="tags"
                   icon="tags"
@@ -90,7 +90,7 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                   onChange={handleUpload}
                   ref={inputImage}
                   type="file"
-                  name="file"
+                  name="image"
                   hidden={true}
                />
 

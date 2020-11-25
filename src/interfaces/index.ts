@@ -31,6 +31,7 @@ export interface State {
       error: null | AxiosError
       data: {
          loggedIn: boolean
+         accessToken: null | string
       }
    }
    register: {
