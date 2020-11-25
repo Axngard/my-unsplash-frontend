@@ -33,6 +33,7 @@ const PhotoGrid = (): JSX.Element => {
          <Wrapper breakpoint={screens.xl}>
             <Grid>
                {status === 'loading' && <p>Loading...</p>}
+               {images.length === 0 && <p>Upload an image to see them here.</p>}
                <Masonry>
                   {images
                      ?.filter((img) => img.url)
