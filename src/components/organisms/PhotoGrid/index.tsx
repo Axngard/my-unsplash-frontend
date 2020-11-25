@@ -1,5 +1,8 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+
+/* Redux */
+import { useDispatch, useSelector } from 'react-redux'
+import { getImages } from '@src/redux/actions/getImages.action'
 
 /* Styles */
 import { Container, Grid } from './styles'
@@ -14,15 +17,28 @@ import Masonry from 'react-masonry-component'
 import { State } from '@src/interfaces'
 
 const PhotoGrid = (): JSX.Element => {
-   const photos = useSelector((state: State) => state.photos)
+   /* States */
+   const {
+      getImages: { data: images, status }
+   } = useSelector((state: State) => state)
+   const dispatch = useDispatch()
+
+   /* Life circle */
+   React.useEffect(() => {
+      dispatch(getImages())
+   }, [])
+
    return (
       <Container>
          <Wrapper breakpoint={screens.xl}>
             <Grid>
+               {status === 'loading' && <p>Loading...</p>}
                <Masonry>
-                  {photos.map((photo) => (
-                     <PhotoCard key={photo._id} photo={photo} />
-                  ))}
+                  {images
+                     ?.filter((img) => img.url)
+                     .map((photo) => (
+                        <PhotoCard key={photo._id} photo={photo} />
+                     ))}
                </Masonry>
             </Grid>
          </Wrapper>

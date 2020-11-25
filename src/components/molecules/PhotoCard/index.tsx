@@ -7,23 +7,25 @@ import { ImageContainer, Img } from './styles'
 import { ModalPhoto } from '@components/organisms'
 
 /* Types */
-import { Photo } from '@src/interfaces'
+import { Image } from '@src/interfaces'
 
 interface Props {
-   photo: Photo
+   photo: Image
 }
 
 const PhotoCard = ({ photo }: Props): JSX.Element => {
    /* Destructuring */
-   const { labels, url, user } = photo
+   const { labels, username, url } = photo
 
    const trigger = (
       <ImageContainer>
-         <Img rounded src={url} alt={`${labels[0]} image by ${user}`} />
+         <Img rounded src={url} alt={`${labels[0]} image by ${username}`} />
       </ImageContainer>
    )
 
-   return <ModalPhoto user={user} labels={labels} url={url} trigger={trigger} />
+   return (
+      <ModalPhoto user={username} labels={labels} url={url} trigger={trigger} />
+   )
 }
 
 export default PhotoCard

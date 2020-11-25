@@ -13,19 +13,20 @@ export type labels =
    | 'Energy'
    | 'Basic Industries'
    | 'Consumer Non-Durables'
-export interface Photo {
+export interface Image {
    _id: string
    url: string
-   labels: Array<labels>
+   labels: string[]
    user: string
    likes: number
    views: number
+   repositoryKey: string
    createdAt: string
+   username: string
 }
 
 type status = 'idle' | 'success' | 'failed' | 'loading'
 export interface State {
-   photos: Photo[]
    auth: {
       status: status
       error: null | AxiosError
@@ -45,6 +46,11 @@ export interface State {
       data: {
          image: string
       }
+   }
+   getImages: {
+      status: status
+      error: null | AxiosError
+      data: Image[]
    }
 }
 
