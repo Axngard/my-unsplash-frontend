@@ -1,94 +1,55 @@
-<!-- Please update value in the {}  -->
+# My Unsplash
 
-<p align="center">
- <img src="https://avatars0.githubusercontent.com/u/72760547?s=400&u=160f1dcaf3d5d5542dd9ef52d1a4d4999b2077a3&v=4" width="150" alt="Cutting Edge Coders Logo"/>
-</p>
+_Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>._
 
-<div align="center">
-   Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
-</div>
 
-<div align="center">
-  <h3>
-    <a href="https://{your-demo-link.your-domain}">
-      Demo
-    </a>
-    <span> | </span>
-    <a href="https://{your-url-to-the-solution}">
-      Solution
-    </a>
-    <span> | </span>
-    <a href="https://devchallenges.io/challenges/rYyhwJAxMfES5jNQ9YsP">
-      Challenge
-    </a>
-  </h3>
-</div>
+## Starting
 
-<!-- TABLE OF CONTENTS -->
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Built With](#built-with)
-- [Features](#features)
-- [How to use](#how-to-use)
-- [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
-
-<!-- OVERVIEW -->
-
-## Overview
-
-![screenshot](https://user-images.githubusercontent.com/16707738/92399059-5716eb00-f132-11ea-8b14-bcacdc8ec97b.png)
-
-Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
-
-- Where can I see your demo?
-- What was your experience?
-- What have you learned/improved?
-- Your wisdom? :)
-
-### Built With
-
-<!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
-
-- [React](https://reactjs.org/)
-- [Vue.js](https://vuejs.org/)
-- [Tailwind](https://tailwindcss.com/)
-
-## Features
-
-<!-- List the features of your application or follow the template. Don't share the figma file here :) -->
-
-This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/rYyhwJAxMfES5jNQ9YsP) was to build an application to complete the given user stories.
-
-## How To Use
-
-<!-- Example: -->
-
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+_You can clone this repository to have the project local:_
 
 ```bash
-# Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
-
-# Install dependencies
-$ npm install
-
-# Run the app
-$ npm start
+git clone https://github.com/CuttingEdgeCoders/my-unsplash-frontend.git
 ```
 
-## Acknowledgements
+_Install the necessary dependencies in the root of the project._
 
-<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For example: -->
+```bash
+npm install
+```
 
-- [Steps to replicate a design with only HTML and CSS](https://devchallenges-blogs.web.app/how-to-replicate-design/)
-- [Node.js](https://nodejs.org/)
-- [Marked - a markdown parser](https://github.com/chjj/marked)
+_Run the following command to start the project in development mode:_
 
-## Contact
+```bash
+npm run dev
+```
 
-- Website [your-website.com](https://{your-web-site-link})
-- GitHub [@your-username](https://{github.com/your-usermame})
-- Twitter [@your-twitter](https://{twitter.com/your-username})
+## Deploy
+
+_You can see the project in production [Soon...]()_
+
+## Built with
+
+_Technologies used in the frontend.:_
+
+-  **ReactJS** A JavaScript library for building user interfaces.
+-  **@emotion** is the result of wondering how we could enhance CSS for styling React component systems.
+-  **TypeScript** is an open-source language which builds on JavaScript, one of the world’s most used tools, by adding static type definitions.
+-  **Axios** Promise based HTTP client for the browser and node.js.
+-  **React Router Dom** DOM bindings for [React Router](https://reacttraining.com/react-router).
+-  **ESLint** A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
+-  **Prettier** An opinionated code formatter; Supports many languages; Integrates with most editors.
+-  **Husky** can prevent bad git commit, git push and more.
+-  **Webpack** is a module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset.
+-  **Babel** is a toolchain that is mainly used to convert ECMAScript 2015+ code into a backwards compatible version of JavaScript in current and older browsers or environments.
+-  **Redux** helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test.
+
+
+## Authors
+
+_Members of this project:_
+-  **[Axel Espinosa](https://github.com/AxelDavid45)** - _Backend Developer_
+-  **[Angelo Zambrano](https://github.com/angelozdev)** - _Frontend Developer_
+
+## License
+
+This project is under the License (MIT) - see the file [LICENSE.md](LICENSE.md) for details
