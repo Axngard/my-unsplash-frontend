@@ -6,3 +6,11 @@ export enum screens {
    xl = '1280px',
    full = '100%'
 }
+
+export enum colors {
+   shadow = 'rgba(0, 0, 0, 0.09)'
+}
+
+export enum animations {
+   normal = 'ease-in-out 200ms'
+}

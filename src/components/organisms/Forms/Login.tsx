@@ -1,69 +1,56 @@
-import React, { FormEvent, useState } from 'react'
-import axios, { AxiosError } from 'axios'
-import { useHistory } from 'react-router-dom'
-
-/* Config */
-import config from '@src/config'
+import React from 'react'
 
 /* Styles */
 import { Container, Text, Anchor } from './styles'
 import { screens } from '@src/styles/theme'
 
-/* Semantic UI */
+/* Components */
+import { Wrapper } from '@components/atoms'
 import {
    Form,
    Header,
    Button,
    Input,
    Message,
-   Transition
+   Transition,
+   FormField
 } from 'semantic-ui-react'
 
-/* Molecules */
-import { Wrapper } from '@components/atoms'
-
 /* Constants */
-import { routes, endpoints } from '@src/constants'
+import { routes } from '@src/constants'
 
 /* Utils */
 import handleErrors from '@src/utils/handleErrors'
 
-const Login = (): JSX.Element => {
-   /* Destructuring */
-   const { Field } = Form
+/* Redux */
+import { login } from '@src/redux/actions/auth.action'
+import { useDispatch, useSelector } from 'react-redux'
 
+/* Types */
+import { State } from '@src/interfaces'
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>
+
+const Login = (): JSX.Element => {
    /* States */
-   const [username, setUsername] = useState('')
-   const [password, setPassword] = useState('')
-   const [error, setError] = useState<AxiosError | null>(null)
-   const [loading, setLoading] = useState(false)
-   const history = useHistory()
-   const isInvalid = !username || !password
+   const dispatch = useDispatch()
+   const [user, setUser] = React.useState({
+      username: '',
+      password: ''
+   })
+   const { status, error } = useSelector((state: State) => state.auth)
+   const isInvalid = !user.password || !user.username
 
    /* Methods */
-   const handleSubmit = (e: FormEvent) => {
+   const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault()
+      dispatch(login(user))
+   }
 
-      setLoading(true)
-      setError(null)
-
-      axios({
-         method: 'POST',
-         baseURL: config.SERVER_URL,
-         url: endpoints.LOGIN,
-         data: {
-            username,
-            password
-         }
+   const handleChange = (e: ChangeEvent) => {
+      setUser({
+         ...user,
+         [e.target.name]: e.target.value
       })
-         .then(() => {
-            // TODO: Control token
-            history.replace('/')
-         })
-         .catch((err: AxiosError) => {
-            setError(err)
-            setLoading(false)
-         })
    }
 
    return (
@@ -71,34 +58,26 @@ const Login = (): JSX.Element => {
          <Wrapper breakpoint={screens.xs}>
             <Form error={!!error} onSubmit={handleSubmit} method="POST">
                <Header as="h2">Login</Header>
-               <Field
+               <FormField
+                  name="username"
                   id="username"
                   control={Input}
                   label="Username"
                   type="text"
                   placeholder="Enter your username..."
                   error={null}
-                  value={username}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setUsername(target.value)
-                  }}
+                  onChange={handleChange}
                />
 
-               <Field
+               <FormField
                   id="password"
                   control={Input}
+                  name="password"
                   label="Password"
                   type="password"
                   placeholder="Enter your password..."
                   error={null}
-                  value={password}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setPassword(target.value)
-                  }}
+                  onChange={handleChange}
                />
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message
@@ -111,8 +90,8 @@ const Login = (): JSX.Element => {
                </Transition>
 
                <Button
-                  loading={loading}
-                  disabled={isInvalid || loading}
+                  loading={status === 'loading'}
+                  disabled={isInvalid || status === 'loading'}
                   fluid
                   primary
                   type="submit"

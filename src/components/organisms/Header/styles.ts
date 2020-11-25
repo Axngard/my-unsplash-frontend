@@ -1,10 +1,10 @@
 import styled from '@emotion/styled'
-import { screens } from '@src/styles/theme'
+import { colors, screens } from '@src/styles/theme'
 import { Link } from 'react-router-dom'
 
 export const Container = styled.header`
    padding: 1.5rem 0;
-   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+   box-shadow: 0px 3px 7px ${colors.shadow};
 `
 
 export const Grid = styled.div`

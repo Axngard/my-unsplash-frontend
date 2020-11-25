@@ -1,16 +1,17 @@
-/* eslint-disable indent */
-import { Item, Action } from '@src/interfaces'
+/* Redux */
+import { combineReducers } from 'redux'
+import auth from './auth.reducer'
+import register from './register.reducer'
+import photos from './photos'
+import uploadImage from './uploadImage.reducer'
+import getImages from './getImages.reducer'
 
-export const DO_SOMETHING = 'DO_SOMETHING'
+const reducers = combineReducers({
+   auth,
+   photos,
+   register,
+   uploadImage,
+   getImages
+})
 
-const reducer = (state: Item[] = [], action: Action): Item[] => {
-   switch (action.type) {
-      case DO_SOMETHING:
-         return [...state, action.payload]
-
-      default:
-         return state
-   }
-}
-
-export default reducer
+export default reducers

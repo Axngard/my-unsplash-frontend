@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import Provider from '@src/__mocks__/Provider.mock' */
 import App from '@src/App'
 
-describe('<App />', () => {
+describe.skip('<App />', () => {
    const app = shallow(<App />)
 
    it('should render without crashing', () => {

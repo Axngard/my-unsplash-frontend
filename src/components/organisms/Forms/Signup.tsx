@@ -1,11 +1,9 @@
-import React, { FormEvent, useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
-
-/* Axios */
-import axios, { AxiosError } from 'axios'
 
 /* Styles */
 import { Container, Text, Anchor } from './styles'
+import { screens } from '@src/styles/theme'
 
 /* Semantic UI */
 import {
@@ -20,119 +18,101 @@ import {
 
 /* Molecules */
 import { Wrapper } from '@components/atoms'
-import { screens } from '@src/styles/theme'
 
 /* Constants */
-import { routes, endpoints } from '@src/constants'
-
-/* Config */
-import config from '@src/config'
+import { routes } from '@src/constants'
 
 /* Utils */
 import handleErrors from '@src/utils/handleErrors'
 
+/* Redux */
+import { useDispatch, useSelector } from 'react-redux'
+import { register } from '@src/redux/actions/register.action'
+
+/* Types */
+import { State } from '@src/interfaces'
+
 const Login = (): JSX.Element => {
    /* States */
-   const [username, setUsername] = useState('')
-   const [email, setEmail] = useState('')
-   const [password, setPassword] = useState('')
-   const [fullname, setFullname] = useState('')
-   const [error, setError] = useState<AxiosError | null>(null)
-   const [success, setSuccess] = useState(false)
-   const [loading, setLoading] = useState(false)
+   const dispatch = useDispatch()
+   const [user, setUser] = React.useState({
+      username: '',
+      email: '',
+      password: '',
+      fullName: ''
+   })
+   const { error, status } = useSelector((state: State) => state.register)
+   const isInvalid = !user.username || !user.email || !user.password
    const history = useHistory()
-   const isInvalid = !username || !email || !password
 
    /* Methods */
-   const handleSubmit = (e: FormEvent) => {
+   const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault()
-
-      setLoading(true)
-      setError(null)
-
-      axios({
-         method: 'POST',
-         baseURL: config.SERVER_URL,
-         url: endpoints.SIGNUP,
-         data: {
-            fullName: fullname,
-            username,
-            password,
-            email
-         }
-      })
-         .then(() => {
-            setSuccess(true)
-            history.replace('/login')
-         })
-         .catch((err: AxiosError) => {
-            setError(err)
-            setLoading(false)
-         })
+      dispatch(register(user))
    }
+
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setUser({
+         ...user,
+         [e.target.name]: e.target.value
+      })
+   }
+
+   /* Effects */
+   React.useEffect(() => {
+      if (status === 'success') history.push(routes.LOGIN)
+   }, [status])
 
    return (
       <Container>
          <Wrapper breakpoint={screens.xs}>
-            <Form success={success} error={!!error} onSubmit={handleSubmit}>
+            <Form
+               success={status === 'success'}
+               error={!!error}
+               onSubmit={handleSubmit}
+            >
                <Header as="h2">Signup</Header>
                <FormField
                   id="fullname"
                   control={Input}
                   label="Fullname"
                   type="text"
+                  name="fullName"
                   placeholder="Enter your fullname..."
                   error={null}
-                  value={fullname}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setFullname(target.value)
-                  }}
+                  onChange={handleChange}
                />
                <FormField
                   id="username"
                   control={Input}
                   label="Username"
                   type="text"
+                  name="username"
                   placeholder="Enter your username..."
                   error={null}
-                  value={username}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setUsername(target.value)
-                  }}
+                  onChange={handleChange}
                />
 
                <FormField
                   id="email"
                   control={Input}
                   label="Email"
+                  name="email"
                   type="email"
                   placeholder="Enter your email..."
                   error={null}
-                  value={email}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setEmail(target.value)
-                  }}
+                  onChange={handleChange}
                />
 
                <FormField
                   id="password"
                   control={Input}
                   label="Password"
+                  name="password"
                   type="password"
                   placeholder="Enter your password..."
                   error={null}
-                  value={password}
-                  onChange={({
-                     target
-                  }: React.ChangeEvent<HTMLInputElement>) => {
-                     setPassword(target.value)
-                  }}
+                  onChange={handleChange}
                />
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message
@@ -144,7 +124,11 @@ const Login = (): JSX.Element => {
                   />
                </Transition>
 
-               <Transition visible={success} animation="fade" duration={500}>
+               <Transition
+                  visible={status === 'success'}
+                  animation="fade"
+                  duration={500}
+               >
                   <Message
                      success
                      header="User registered"
@@ -153,8 +137,8 @@ const Login = (): JSX.Element => {
                </Transition>
 
                <Button
-                  loading={loading}
-                  disabled={isInvalid || loading}
+                  loading={status === 'loading'}
+                  disabled={isInvalid || status === 'loading'}
                   fluid
                   primary
                   type="submit"
