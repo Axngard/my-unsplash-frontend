@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 /* Styles */
@@ -14,7 +14,18 @@ import { Input, Button, Header as Title } from 'semantic-ui-react'
 /* Organisms */
 import { ModalAddPhoto } from '@components/organisms'
 
+/* Redux */
+import { getImagesFiltered } from '@src/redux/actions/getImages.action'
+import { useDispatch } from 'react-redux'
+
 const Header = (): JSX.Element => {
+   /* States */
+   const dispatch = useDispatch()
+
+   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+      dispatch(getImagesFiltered(e.target.value))
+   }
+
    return (
       <Container>
          <Wrapper breakpoint={screens.xl}>
@@ -35,6 +46,7 @@ const Header = (): JSX.Element => {
                   iconPosition="left"
                   placeholder="Search by..."
                   size="small"
+                  onChange={handleChange}
                />
                <ModalAddPhoto trigger={<Button positive>Add a photo</Button>} />
             </Grid>

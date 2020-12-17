@@ -19,7 +19,10 @@ import { State } from '@src/interfaces'
 const PhotoGrid = (): JSX.Element => {
    /* States */
    const {
-      getImages: { data: images, status }
+      getImages: {
+         data: { images, imagesFiltered },
+         status
+      }
    } = useSelector((state: State) => state)
    const dispatch = useDispatch()
 
@@ -33,11 +36,17 @@ const PhotoGrid = (): JSX.Element => {
          <Wrapper breakpoint={screens.xl}>
             <Grid>
                {status === 'loading' && <p>Loading...</p>}
-               {images.length === 0 && <p>Upload an image to see them here.</p>}
+               {status === 'success' && !images.length && (
+                  <p>Upload an image to see them here.</p>
+               )}
                <Masonry>
-                  {images
-                     ?.filter((img) => img.url)
-                     .map((photo) => (
+                  {imagesFiltered.length
+                     ? imagesFiltered
+                        ?.filter((img) => img.url)
+                        .map((photo) => (
+                           <PhotoCard key={photo._id} photo={photo} />
+                        ))
+                     : images.map((photo) => (
                         <PhotoCard key={photo._id} photo={photo} />
                      ))}
                </Masonry>
