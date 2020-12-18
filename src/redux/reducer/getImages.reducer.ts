@@ -46,8 +46,13 @@ function getImageReducer(
             status: statuses.SUCCESS
          }
       case actionTypes.GET_IMAGE_FILTERED: {
-         const imagesFiltered = state.data.images.filter((image) =>
-            image.labels.toString().toLowerCase().includes(action.word)
+         const imagesFiltered = state.data.images.filter(
+            (image) =>
+               image.labels
+                  .toString()
+                  .toLowerCase()
+                  .includes(action.word.toLowerCase()) ||
+               image.username.toLowerCase().includes(action.word.toLowerCase())
          )
 
          return {
