@@ -50,7 +50,10 @@ export interface State {
    getImages: {
       status: status
       error: null | AxiosError
-      data: Image[]
+      data: {
+         images: Image[]
+         imagesFiltered: Image[]
+      }
    }
 }
 
