@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
       path: path.resolve(__dirname, 'dist'),
       filename: 'src/bundle.[hash].js',
       publicPath: '/',
-      chunkFilename: '[name].[hash].js'
+      chunkFilename: 'src/[name].[hash].js'
    },
    module: {
       rules: [
@@ -66,7 +67,21 @@ module.exports = {
       }),
       new MiniCssExtractPlugin({
          filename: 'styles/[name].[chunkhash].css',
-         chunkFilename: '[name].css'
+         chunkFilename: 'styles/[name].css'
+      }),
+      new WorkboxWebpackPlugin.GenerateSW({
+         navigateFallback: '/index.html',
+         runtimeCaching: [
+            {
+               urlPattern: new RegExp(
+                  'https://myunsplash-images-cuttingedgecoders'
+               ),
+               handler: 'CacheFirst',
+               options: {
+                  cacheName: 'images'
+               }
+            }
+         ]
       }),
       new Dotenv({ path: './.env' })
    ]
