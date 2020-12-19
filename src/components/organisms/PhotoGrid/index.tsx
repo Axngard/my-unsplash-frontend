@@ -12,6 +12,7 @@ import { screens } from '@src/styles/theme'
 import { Wrapper } from '@components/atoms'
 import { PhotoCard } from '@components/molecules'
 import Masonry from 'react-masonry-component'
+import { Loader } from 'semantic-ui-react'
 
 /* Types */
 import { State } from '@src/interfaces'
@@ -35,7 +36,11 @@ const PhotoGrid = (): JSX.Element => {
       <Container>
          <Wrapper breakpoint={screens.xl}>
             <Grid>
-               {status === 'loading' && <p>Loading...</p>}
+               {status === 'loading' && (
+                  <Loader active inline="centered">
+                     Preparing Images
+                  </Loader>
+               )}
                {status === 'success' && !images.length && (
                   <p>Upload an image to see them here.</p>
                )}
