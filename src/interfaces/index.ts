@@ -17,7 +17,6 @@ export interface Image {
    _id: string
    url: string
    labels: string[]
-   user: string
    likes: number
    views: number
    repositoryKey: string
