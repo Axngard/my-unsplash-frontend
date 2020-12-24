@@ -3,6 +3,7 @@ import config from '@src/config'
 import { endpoints, localStorageItems } from '@src/constants'
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { Dispatch } from 'redux'
+import { getImages } from './getImages.action'
 
 /* Types */
 export enum types {
@@ -60,7 +61,7 @@ export const uploadImageRequest = (): uploadImageRequestAction => ({
 })
 
 export function uploadImage(form: HTMLFormElement) {
-   return (dispatch: Dispatch): Promise<any> => {
+   return (dispatch: Dispatch<any>): Promise<any> => {
       dispatch(uploadImageIdle())
       dispatch(uploadImageRequest())
       const accessToken = localStorage.getItem(localStorageItems.TOKEN)
@@ -84,6 +85,7 @@ export function uploadImage(form: HTMLFormElement) {
       })
          .then(({ data }: AxiosResponse) => {
             dispatch(uploadImageSuccess(data))
+            dispatch(getImages())
          })
          .catch((err: AxiosError) => {
             dispatch(uploadImageFailed(err))
