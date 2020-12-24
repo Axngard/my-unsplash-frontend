@@ -48,12 +48,15 @@ const PhotoGrid = (): JSX.Element => {
                   {imagesFiltered.length
                      ? imagesFiltered
                         ?.filter((img) => img.url)
+                        .slice(0, 10)
                         .map((photo) => (
                            <PhotoCard key={photo._id} photo={photo} />
                         ))
-                     : images.map((photo) => (
-                        <PhotoCard key={photo._id} photo={photo} />
-                     ))}
+                     : images
+                        .slice(0, 10)
+                        .map((photo) => (
+                           <PhotoCard key={photo._id} photo={photo} />
+                        ))}
                </Masonry>
             </Grid>
          </Wrapper>
