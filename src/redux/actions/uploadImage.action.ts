@@ -70,7 +70,7 @@ export function uploadImage(form: HTMLFormElement) {
       const labelsArray = (formData.get('tags') as string).split(/[,\s-]+/)
 
       labelsArray.forEach((label) => {
-         formData.append('labels', label)
+         formData.append('labels[]', label)
       })
 
       return axios({
