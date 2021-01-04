@@ -33,7 +33,7 @@ const registerFailed = (error: AxiosError): Action => ({
    payload: error
 })
 
-const registerIdle = (): Action => ({
+export const registerIdle = (): Action => ({
    type: types.REGISTER_IDLE
 })
 
