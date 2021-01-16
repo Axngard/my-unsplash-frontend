@@ -22,6 +22,7 @@ import {
 /* Types */
 import { State } from '@src/interfaces'
 import { uploadImage } from '@src/redux/actions/uploadImage.action'
+import handleErrors from '@src/utils/handleErrors'
 interface Props {
    trigger: React.ReactNode
 }
@@ -65,6 +66,13 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
       if (status === 'success') setOpen(false)
    }, [status])
 
+   React.useEffect(() => {
+      if (status === 'failed') {
+         setPhotoURL('')
+         setLabelValue('')
+      }
+   }, [error])
+
    return (
       <Modal
          centered={false}
@@ -100,6 +108,7 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                   type="file"
                   name="image"
                   hidden={true}
+                  accept="image/x-png,image/gif,image/jpeg"
                />
 
                <FormField
@@ -128,7 +137,7 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                   <Message
                      error
                      header={error?.name || 'Error loaded image'}
-                     content={error?.message}
+                     content={handleErrors(error?.response?.data.message)}
                   />
                </Transition>
             </Form>

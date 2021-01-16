@@ -27,7 +27,7 @@ import handleErrors from '@src/utils/handleErrors'
 
 /* Redux */
 import { useDispatch, useSelector } from 'react-redux'
-import { register } from '@src/redux/actions/register.action'
+import { register, registerIdle } from '@src/redux/actions/register.action'
 
 /* Types */
 import { State } from '@src/interfaces'
@@ -62,6 +62,10 @@ const Login = (): JSX.Element => {
    React.useEffect(() => {
       if (status === 'success') history.push(routes.LOGIN)
    }, [status])
+
+   React.useEffect((): any => {
+      return () => dispatch(registerIdle())
+   }, [])
 
    return (
       <Container>
@@ -117,9 +121,6 @@ const Login = (): JSX.Element => {
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message
                      error
-                     header={`${error?.response?.data.error || 'Error'}: ${
-                        error?.response?.data.statusCode || 500
-                     }`}
                      content={handleErrors(error?.response?.data.message || [])}
                   />
                </Transition>

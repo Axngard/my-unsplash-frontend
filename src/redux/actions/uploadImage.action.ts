@@ -67,7 +67,9 @@ export function uploadImage(form: HTMLFormElement) {
       const accessToken = localStorage.getItem(localStorageItems.TOKEN)
       const formData = new FormData(form)
 
-      const labelsArray = (formData.get('tags') as string).split(/[,\s-]+/)
+      const labelsArray = (formData.get('tags') as string)
+         .trim()
+         .split(/[,\s-]+/)
 
       labelsArray.forEach((label) => {
          formData.append('labels', label)

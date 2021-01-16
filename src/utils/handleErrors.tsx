@@ -20,6 +20,10 @@ const handleErrors = (array: Array<string> | string): JSX.Element => {
          return <span>Your password is insecure</span>
       }
 
+      if (array === 'mimetype_not_allowed') {
+         return <span>This format is invalid</span>
+      }
+
       return <span>{array}</span>
    }
 
