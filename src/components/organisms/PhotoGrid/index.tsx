@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import React from 'react'
 
 /* Redux */
@@ -11,7 +12,6 @@ import { screens } from '@src/styles/theme'
 /* Components */
 import { Wrapper } from '@components/atoms'
 import { PhotoCard } from '@components/molecules'
-import Masonry from 'react-masonry-component'
 import { Loader } from 'semantic-ui-react'
 
 /* Types */
@@ -44,20 +44,21 @@ const PhotoGrid = (): JSX.Element => {
                {status === 'success' && !images.length && (
                   <p>Upload an image to see them here.</p>
                )}
-               <Masonry>
+
+               <React.Fragment>
                   {imagesFiltered.length
                      ? imagesFiltered
                         ?.filter((img) => img.url)
-                        .slice(0, 10)
+                        .slice(0, 20)
                         .map((photo) => (
                            <PhotoCard key={photo._id} photo={photo} />
                         ))
                      : images
-                        .slice(0, 10)
+                        .slice(0, 20)
                         .map((photo) => (
                            <PhotoCard key={photo._id} photo={photo} />
                         ))}
-               </Masonry>
+               </React.Fragment>
             </Grid>
          </Wrapper>
       </Container>
