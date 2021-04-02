@@ -23,7 +23,7 @@ import { routes } from '@src/constants'
 import handleErrors from '@src/utils/handleErrors'
 
 /* Redux */
-import { login } from '@src/redux/actions/auth.action'
+import { login, loginIdle } from '@src/redux/actions/auth.action'
 import { useDispatch, useSelector } from 'react-redux'
 
 /* Types */
@@ -52,6 +52,10 @@ const Login = (): JSX.Element => {
          [e.target.name]: e.target.value
       })
    }
+
+   React.useEffect((): any => {
+      return () => dispatch(loginIdle())
+   }, [])
 
    return (
       <Container>
@@ -82,9 +86,6 @@ const Login = (): JSX.Element => {
                <Transition visible={!!error} animation="shake" duration={500}>
                   <Message
                      error
-                     header={`${error?.response?.data.error || 'Error'}: ${
-                        error?.response?.data.statusCode || 500
-                     }`}
                      content={handleErrors(error?.response?.data.message)}
                   />
                </Transition>

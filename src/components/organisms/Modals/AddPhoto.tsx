@@ -22,6 +22,7 @@ import {
 /* Types */
 import { State } from '@src/interfaces'
 import { uploadImage } from '@src/redux/actions/uploadImage.action'
+import handleErrors from '@src/utils/handleErrors'
 interface Props {
    trigger: React.ReactNode
 }
@@ -54,16 +55,29 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
       }
    }
 
+   const handleClose = () => {
+      setOpen(false)
+      setPhotoURL('')
+      setLabelValue('')
+   }
+
    /* Effects */
    React.useEffect(() => {
       if (status === 'success') setOpen(false)
    }, [status])
 
+   React.useEffect(() => {
+      if (status === 'failed') {
+         setPhotoURL('')
+         setLabelValue('')
+      }
+   }, [error])
+
    return (
       <Modal
          centered={false}
          onOpen={() => setOpen(true)}
-         onClose={() => setOpen(false)}
+         onClose={handleClose}
          open={open}
          trigger={trigger}
          size="tiny"
@@ -72,7 +86,7 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
          <ModalContent>
             <Form onSubmit={handleSubmit} error={!!error} method="POST">
                <FormField
-                  placeholder="Enter tags - (Separate with space and comma)"
+                  placeholder="Enter tags - (Separate with space, comma or hyphen)"
                   fluid
                   name="tags"
                   icon="tags"
@@ -82,9 +96,11 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                   label="Label"
                   id="label"
                   value={labelValue}
-                  onChange={({ target }: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange={({
+                     target
+                  }: React.ChangeEvent<HTMLInputElement>) => {
                      setLabelValue(target.value)
-                  }
+                  }}
                />
                <input
                   onChange={handleUpload}
@@ -92,6 +108,7 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                   type="file"
                   name="image"
                   hidden={true}
+                  accept="image/x-png,image/gif,image/jpeg"
                />
 
                <FormField
@@ -120,14 +137,14 @@ const ModalAddPhoto = ({ trigger }: Props): JSX.Element => {
                   <Message
                      error
                      header={error?.name || 'Error loaded image'}
-                     content={error?.message}
+                     content={handleErrors(error?.response?.data.message)}
                   />
                </Transition>
             </Form>
          </ModalContent>
 
          <ModalActions>
-            <Button onClick={() => setOpen(false)} content="Cancel" basic />
+            <Button onClick={handleClose} content="Cancel" basic />
             <Button
                content="Submit"
                labelPosition="right"

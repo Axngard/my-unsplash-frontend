@@ -17,7 +17,6 @@ export interface Image {
    _id: string
    url: string
    labels: string[]
-   user: string
    likes: number
    views: number
    repositoryKey: string
@@ -50,7 +49,10 @@ export interface State {
    getImages: {
       status: status
       error: null | AxiosError
-      data: Image[]
+      data: {
+         images: Image[]
+         imagesFiltered: Image[]
+      }
    }
 }
 
